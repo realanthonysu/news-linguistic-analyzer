@@ -17,30 +17,24 @@
 
 ```
 news-linguistic-analyzer/
-├── README.md                          # 安装与快速入门指南
-├── SKILL.md                           # Skill 定义文件（核心配置）
-├── QWEN.md                            # 本文件
-└── templates/
-    ├── output-format.md               # 输出格式模板（模型内部参考）
-    ├── analysis-checklist.md          # 质量检查清单（输出前自检）
-    └── validate-input.py              # 输入预校验脚本（CLI 工具）
+├── SKILL.md              # 核心指令文件（YAML 元数据 + Markdown 指令）
+├── README.md             # 安装与快速入门指南
+├── LICENSE               # MIT 许可证
+├── scripts/
+│   └── validate-input.py # 输入预校验脚本（CLI 工具）
+├── references/
+│   ├── output-format.md  # 输出格式详细规范
+│   ├── quality-checklist.md  # 质量检查清单
+│   └── examples.md       # 输入/输出对照示例（5 种场景）
+└── assets/               # （预留）模板、资源文件
 ```
 
 ## 安装方式
 
-```bash
-# 1. 创建 Skill 目录
-mkdir -p ~/.qwen/skills/news-linguistic-analyzer
+详见 [README.md](README.md)，推荐以下两种：
 
-# 2. 复制本套件所有文件（保持 templates/ 子目录结构）
-cp -r * ~/.qwen/skills/news-linguistic-analyzer/
-
-# 3. 赋予脚本执行权限
-chmod +x ~/.qwen/skills/news-linguistic-analyzer/templates/validate-input.py
-
-# 4. 重启 Qwen Code 或执行 /skills 刷新
-/skills  # 确认列表中显示 news-linguistic-analyzer
-```
+- **方式一**：把 GitHub 链接发给 Agent，自动安装
+- **方式二**：`npx skills add` 命令行安装
 
 ## 触发方式
 
@@ -48,7 +42,7 @@ chmod +x ~/.qwen/skills/news-linguistic-analyzer/templates/validate-input.py
 - 明显英文新闻特征（标题 + 正文 + 消息源）
 - 触发词：`英文新闻`、`翻译分析`、`news analysis`、`lexical analysis`、`Reuters`、`BBC`、`AP`、`breaking news`、`translate and analyze`
 
-也可显式调用：`/skills news-linguistic-analyzer + 你的文本`
+显式调用：`/news-linguistic-analyzer + 你的文本`
 
 ## 使用模式
 
@@ -61,14 +55,14 @@ chmod +x ~/.qwen/skills/news-linguistic-analyzer/templates/validate-input.py
 
 ## 输入校验脚本
 
-`templates/validate-input.py` 可独立运行，用于预判断输入是否为新闻文本：
+`scripts/validate-input.py` 可独立运行，用于预判断输入是否为新闻文本：
 
 ```bash
 # 从 stdin 读取
-echo "Your news text here" | python templates/validate-input.py
+echo "Your news text here" | python scripts/validate-input.py
 
 # 从文件读取
-python templates/validate-input.py input.txt
+python scripts/validate-input.py input.txt
 ```
 
 **退出码含义**：
@@ -109,7 +103,7 @@ ABC News → 美国广播公司新闻 | PBS → 美国公共电视网
 
 ## 质量保障
 
-生成输出前需对照 `templates/analysis-checklist.md` 自检，覆盖：
+生成输出前需对照 `references/quality-checklist.md` 自检，覆盖：
 - **基础完整性** — 翻译覆盖、术语数量、句型典型性
 - **专业准确性** — 专有名词、时态逻辑、被动语态处理
 - **事实核查** — 日期/人物/事件验证
