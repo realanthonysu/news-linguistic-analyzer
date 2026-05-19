@@ -28,11 +28,17 @@ npx skills add https://github.com/realanthonysu/news-linguistic-analyzer --skill
 
 发送一段英文新闻文本即可触发，例如：
 
-```text
-Iran Standoff and Peace Talks: Amid escalating tensions and stalled negotiations,
-President Trump cancelled a planned trip for US envoys to Pakistan,
-stating "we have all the cards," Reuters reports.
+- 显式触发（推荐）
+```bash
+/news-linguistic-analyzer Standoff and Peace Talks: Amid escalating tensions and stalled negotiations, President Trump cancelled a planned trip for US envoys to Pakistan, stating "we have all the cards," Reuters reports.
 ```
+
+- 隐式触发
+```text
+Iran Standoff and Peace Talks: Amid escalating tensions and stalled negotiations, President Trump cancelled a planned trip for US envoys to Pakistan, stating "we have all the cards," Reuters reports.
+```
+
+
 
 Skill 将自动输出：**中文翻译 → 用词分析 → 句法拆解 → 语法分析 → 翻译技巧 → 延伸思考**
 
