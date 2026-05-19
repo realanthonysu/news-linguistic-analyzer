@@ -74,3 +74,7 @@ news-linguistic-analyzer/
 - 输出格式模板：[references/output-format.md](references/output-format.md)
 - 质量检查清单：[references/quality-checklist.md](references/quality-checklist.md)
 - 输入/输出示例（5 种场景）：[references/examples.md](references/examples.md)
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)。你可以自由使用、修改、分发本 Skill，无需保留任何限制。
