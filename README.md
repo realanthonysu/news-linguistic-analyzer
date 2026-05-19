@@ -4,6 +4,28 @@
 
 ## 安装
 
+> 以下三种方式任选其一，推荐 **方式一** 或 **方式二**。
+
+### 方式一：让 Agent 直接安装（推荐）
+
+把本仓库链接发给 Qwen Code / Claude Code 等支持 Agent Skills 的助手：
+
+```text
+请安装这个 Skill：https://github.com/realanthonysu/news-linguistic-analyzer
+```
+
+Agent 会自动将其克隆到 `~/.qwen/skills/news-linguistic-analyzer/` 并加载。
+
+### 方式二：使用 npx skills 命令安装
+
+```bash
+npx skills add https://github.com/realanthonysu/news-linguistic-analyzer --skill news-linguistic-analyzer
+```
+
+安装完成后刷新 Agent（执行 `/skills` 确认列表中显示 `news-linguistic-analyzer`）。
+
+### 方式三：手动复制安装
+
 ```bash
 # 1. 创建目录
 mkdir -p ~/.qwen/skills/news-linguistic-analyzer
