@@ -5,8 +5,35 @@ news-linguistic-analyzer 输入预校验脚本
 功能：判断用户输入是否为典型英文新闻文本，辅助模型决策是否调用本 Skill
 """
 
+import os
 import re
 from datetime import datetime
+
+MAX_INPUT_SIZE = 1_000_000
+
+
+def _load_news_sources() -> list[str]:
+    """从 references/news-sources.md 动态加载消息源列表"""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    sources_path = os.path.join(script_dir, '..', 'references', 'news-sources.md')
+    sources = []
+    try:
+        with open(sources_path, 'r', encoding='utf-8') as f:
+            in_table = False
+            for line in f:
+                line = line.strip()
+                if line.startswith('| 缩写/原名'):
+                    in_table = True
+                    continue
+                if in_table and line.startswith('|') and not line.startswith('|---'):
+                    parts = [p.strip() for p in line.split('|')]
+                    if len(parts) >= 2:
+                        name = parts[1]
+                        if name and name != '缩写/原名':
+                            sources.append(name)
+    except (FileNotFoundError, IOError):
+        pass
+    return sources
 
 def is_likely_news(text: str) -> dict:
     """
@@ -19,14 +46,31 @@ def is_likely_news(text: str) -> dict:
     """
     flags = []
     score = 0.0
+
+    if len(text) > MAX_INPUT_SIZE:
+        return {
+            'is_news': False,
+            'confidence': 0.0,
+            'flags': [f"⚠️ input_too_large:{len(text)} bytes (max {MAX_INPUT_SIZE})"],
+            'suggestion': 'decline'
+        }
     
     # === 正向特征（加分项）===
     
     # 1. 消息源标识
-    news_sources = ['Reuters', 'AP', 'BBC', 'ABC News', 'PBS', 'CNN', 'Al Jazeera']
-    if any(src in text for src in news_sources):
+    news_sources = _load_news_sources()
+    if not news_sources:
+        news_sources = [
+            'Reuters', 'AP', 'BBC', 'ABC News', 'PBS', 'CNN', 'Al Jazeera',
+            'The New York Times', 'The Guardian', 'The Washington Post',
+            'Bloomberg', 'The Wall Street Journal', 'The Economist',
+            'NHK', 'DW', 'France 24', 'Xinhua', 'CNBC', 'NPR',
+            'Associated Press',
+        ]
+    if any(re.search(r'\b' + re.escape(src) + r'\b', text) for src in news_sources):
+        matched = [s for s in news_sources if re.search(r'\b' + re.escape(s) + r'\b', text)][0]
         score += 0.3
-        flags.append(f"detected_source:{[s for s in news_sources if s in text][0]}")
+        flags.append(f"detected_source:{matched}")
     
     # 2. 新闻高频动词
     news_verbs = ['reports', 'says', 'announced', 'confirmed', 'stated', 'according to']
@@ -42,12 +86,12 @@ def is_likely_news(text: str) -> dict:
     
     # 4. 标题特征（首行大写+冒号/短横线）
     lines = text.strip().split('\n')
-    if lines and re.match(r'^[A-Z][^\.]{20,}[:\-]', lines[0]):
+    if lines and re.match(r'^[A-Z][^\.]{20,80}[:\-]', lines[0]):
         score += 0.2
         flags.append("likely_headline")
     
     # 5. 地名+事件组合
-    geo_event = r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*[:\-,]?\s*(?:shooting|bombing|tornado|talks|strike)'
+    geo_event = r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s*[:\-,]?\s*(?:shooting|bombing|tornado|talks|strike|election|summit|protest|deal|attack|crisis|conflict|agreement|sanctions|referendum)'
     if re.search(geo_event, text, re.I):
         score += 0.15
         flags.append("detected_geo_event")
@@ -68,7 +112,8 @@ def is_likely_news(text: str) -> dict:
         score -= 0.3
     
     # 3. 非新闻文体特征
-    if re.search(r'(once upon a time|dear diary|poem|verse)', text, re.I):
+    non_news_patterns = ['once upon a time', 'dear diary', 'poem', 'verse']
+    if any(p in text.lower() for p in non_news_patterns):
         flags.append("⚠️ non_news_genre_detected")
         score -= 0.4
     
@@ -99,12 +144,27 @@ def format_validation_report(result: dict) -> str:
 # === CLI 测试入口 ===
 if __name__ == '__main__':
     import sys
+
+    if sys.platform == 'win32':
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+            sys.stderr.reconfigure(encoding='utf-8')
+        except AttributeError:
+            pass
+
+    text = ''
     if len(sys.argv) > 1:
-        # 从文件读取
-        with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        file_path = os.path.realpath(sys.argv[1])
+        if not os.path.isfile(file_path):
+            print(f"❌ 文件不存在：{sys.argv[1]}", file=sys.stderr)
+            sys.exit(2)
+        file_size = os.path.getsize(file_path)
+        if file_size > MAX_INPUT_SIZE:
+            print(f"❌ 文件过大：{file_size} bytes (上限 {MAX_INPUT_SIZE} bytes)", file=sys.stderr)
+            sys.exit(2)
+        with open(file_path, 'r', encoding='utf-8') as f:
             text = f.read()
     else:
-        # 从 stdin 读取
         text = sys.stdin.read()
     
     result = is_likely_news(text)
