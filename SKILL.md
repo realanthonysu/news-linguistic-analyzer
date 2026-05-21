@@ -1,19 +1,19 @@
 ---
 name: news-linguistic-analyzer
-description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis."
+description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis. Requires web_search and web_fetch tools for the mandatory fact-checking step; Python 3.8+ is required for the optional scripts/validate-input.py."
 metadata:
   author: anthonysu
-  version: "1.4.2"
-tools_required:
-  - web_search
-  - web_fetch
+  version: "1.4.4"
 license: MIT
-compatibility: "Python 3.8+ required for optional scripts/validate-input.py"
 ---
 
 # 🗞️ 新闻英语翻译与深度分析器
 
 当用户提供一段英文新闻文本时，**必须首先执行事实核查**，然后再进行后续 6 步分析。
+
+> **📋 多步骤任务提示**：本 skill 包含 **1 个强制前置步骤 + 6 个分析步骤**，共 7 个不可省略的环节。如果agent 内置了任务追踪机制（如 todo list / task plan），**强烈建议**在开始前创建任务清单，逐步标记完成状态，以确保不遗漏任何环节（尤其是「事实核查」前置步骤）。
+>
+> **Multi-step Task Notice**: This skill contains **1 mandatory pre-step + 6 analysis steps**. If agent supports a task tracking mechanism (e.g., todo list), it is **strongly recommended** to create a checklist before starting and mark each step as completed, to avoid skipping any step (especially the mandatory fact-checking).
 
 ## 🚨 事实核查（强制前置步骤）
 
