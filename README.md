@@ -95,6 +95,10 @@ news-linguistic-analyzer/
 
 ## 版本历史
 
+### v1.4.2 (2026-05-21)
+- 🏷️ output-format.md 新增「领域背景注释输出规范」：5 类注释（术语释义/机构背景/逻辑机制/体系差异/历史脉络）与嵌入位置和格式的一一映射
+- 🔗 domain-adaptation.md 补充 output-format.md 引用，形成完整引用链
+
 ### v1.4.1 (2026-05-21)
 - 🔧 重写 SKILL.md description：改用第三人称，增加自然语言触发词（英文+中文），添加 negative triggers 防止误触发，对齐 Anthropic 官方 skill 规范
 

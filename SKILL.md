@@ -3,7 +3,7 @@ name: news-linguistic-analyzer
 description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis."
 metadata:
   author: anthonysu
-  version: "1.4.1"
+  version: "1.4.2"
 tools_required:
   - web_search
   - web_fetch

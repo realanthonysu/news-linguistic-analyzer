@@ -93,8 +93,12 @@ news-linguistic-analyzer/
 
 ## Changelog
 
+### v1.4.2 (2026-05-21)
+- 🏷️ Added "Domain Annotation Output Rules" to output-format.md: 5 annotation types mapped to embedding positions and formats
+- 🔗 domain-adaptation.md now references output-format.md for placement rules, forming a complete reference chain
+
 ### v1.4.1 (2026-05-21)
-- 🔧 Rewrote SKILL.md description: switched to third person, added natural language triggers (English + Chinese), added negative triggers to prevent false activation, aligned with Anthropic official skill spec
+- 🔧 Rewrote SKILL.md description: third-person perspective, added natural language triggers (English+Chinese), added negative triggers to prevent false activation, aligned with Anthropic official skill spec
 
 ### v1.4.0 (2026-05-20)
 - 🚨 Fact-check trigger logic refactored to **two tiers**: mandatory triggers (6 conditions) + model assessment fallback
