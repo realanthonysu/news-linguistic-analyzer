@@ -60,6 +60,8 @@ def is_likely_news(text: str) -> dict:
     # 1. 消息源标识
     news_sources = _load_news_sources()
     if not news_sources:
+        # NOTE: 以下硬编码列表仅作为动态加载失败时的最小 fallback。
+        # 权威消息源列表请维护在 references/news-sources.md，避免双源不同步。
         news_sources = [
             'Reuters', 'AP', 'BBC', 'ABC News', 'PBS', 'CNN', 'Al Jazeera',
             'The New York Times', 'The Guardian', 'The Washington Post',

@@ -1,9 +1,11 @@
 ---
 name: news-linguistic-analyzer
-description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis. Requires web_search and web_fetch tools for the mandatory fact-checking step; Python 3.8+ is required for the optional scripts/validate-input.py."
+description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis."
+compatibility: "Requires web_search and web_fetch tools for the mandatory fact-checking step. Python 3.8+ for the optional scripts/validate-input.py."
+allowed-tools: "web_search web_fetch"
 metadata:
   author: anthonysu
-  version: "1.4.4"
+  version: "1.4.6"
 license: MIT
 ---
 
@@ -123,7 +125,11 @@ license: MIT
 
 当新闻中出现消息源标识时，在语法分析中注明来源，翻译时使用标准中文译法。
 
-## 批量处理
+## 批量处理与超长文本
+
+> **判断依据**：用户用 `---` 或空行明确分隔多段 → **批量处理**；连续长文且 >2000 词 → **超长文本处理**。
+
+### 批量处理
 
 当用户一次性提供多段新闻时：
 1. 按 `---` 或空行分割
@@ -131,7 +137,7 @@ license: MIT
 3. 依次执行 6 步分析，段间用 `---` 分隔
 4. 末尾添加「📊 批量分析小结」
 
-## 超长文本处理
+### 超长文本处理
 
 当单篇新闻超过 2000 词时，采用**主题感知分段策略**。
 
@@ -139,14 +145,24 @@ license: MIT
 
 ## 输入校验（可选）
 
-当不确定输入是否为新闻文本时，可运行预校验脚本辅助判断：
+当不确定输入是否为新闻文本时，可运行预校验脚本辅助判断。
 
-1. 将用户输入写入临时文件：`python -c "import tempfile,sys; f=tempfile.NamedTemporaryFile(mode='w',suffix='.txt',delete=False,encoding='utf-8'); f.write(sys.argv[1]); print(f.name); f.close()" "用户输入内容"`
-2. 执行校验：`python scripts/validate-input.py <临时文件路径>`
-3. 根据退出码决定后续操作：
-   - 返回码 `0`：正常执行分析
-   - 返回码 `1`：在输出开头添加「❓ 内容属性待确认」提示
-   - 返回码 `2`：回复「该内容疑似非新闻文本，是否仍要执行语言分析？[是/否]」
+**方式一（推荐）**：通过 stdin 管道输入，无需临时文件：
+
+```bash
+echo "<用户输入内容>" | python scripts/validate-input.py
+```
+
+**方式二**：传入文件路径参数：
+
+```bash
+python scripts/validate-input.py <文件路径>
+```
+
+根据退出码决定后续操作：
+- 返回码 `0`：正常执行分析
+- 返回码 `1`：在输出开头添加「❓ 内容属性待确认」提示
+- 返回码 `2`：回复「该内容疑似非新闻文本，是否仍要执行语言分析？[是/否]」
 
 > 如无法执行脚本，可按以下规则内联判断：检测消息源标识、新闻高频动词（reports/announced/stated）、时效性词汇；如含虚构标记词（fiction/scenario/hypothetical）则触发事实核查。
 
@@ -156,7 +172,7 @@ license: MIT
 
 ## 质量检查
 
-生成输出前，对照 [references/quality-checklist.md](references/quality-checklist.md) 自检。
+完成全部分析步骤后，**必须**对照 [references/quality-checklist.md](references/quality-checklist.md) 逐项自检。如 [必检] 项未通过，修正后再输出最终结果。
 
 ## 示例
 

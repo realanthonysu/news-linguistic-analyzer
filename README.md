@@ -23,6 +23,7 @@ CN · [EN](README.en.md)
 - 🔄 **多模式输出**：`仅需翻译` / `简洁模式` / `跳过延伸` 等指令切换分析深度
 - 📦 **批量处理**：一次输入多篇新闻，自动分段编号分析
 - 📄 **超长文本处理**：>2000 词新闻采用主题感知分段策略，保留上下文衔接并生成全文综述
+- 📋 **多步骤任务追踪提示**：内置对 Agent todo list 机制的协作提示，避免遗漏「事实核查」等强制前置步骤
 -  **输入安全校验**：内置输入大小限制、路径校验
 
 ## 安装
@@ -94,6 +95,31 @@ news-linguistic-analyzer/
 - 输入/输出示例（5 种场景）：[references/examples.md](references/examples.md)
 
 ## 版本历史
+
+### v1.4.6 (2026-05-24)
+- 🔧 **元数据规范优化**：从 `description` 拆出工具依赖和环境要求
+  - 新增 `compatibility` 字段，声明 `web_search`/`web_fetch` 工具依赖和 Python 3.8+ 要求
+  - 新增 `allowed-tools` 字段（实验性），白名单 `web_search web_fetch`
+  - `description` 聚焦触发语义，移除环境声明
+- 📝 **批量/超长文本决策树**：合并为统一章节，顶部添加判断依据（`---` 分隔 → 批量处理；连续长文 >2000 词 → 超长文本处理）
+- ✅ **质量检查措辞加强**：从"自检"改为"**必须**逐项自检，[必检]项未通过须修正"
+- 📄 **示例 2 完整化**：从 3 行摘要扩展为完整 7 步端到端输出，与示例 1 结构对齐
+- 🚀 **输入校验简化**：`scripts/validate-input.py` 调用方式从 3 步临时文件流程简化为 1 行 stdin 管道命令
+
+### v1.4.5 (2026-05-21)
+- 🧹 **逻辑去重**：建立单一信息源原则，避免多处定义不同步
+  - 删除 `edge-cases.md` 中与 SKILL.md 主文件重复的「降级策略」条目，改为交叉引用
+  - 删除 `edge-cases.md` 中冗余的「超长文本」条目（该规则已在 `long-text-processing.md` 单独覆盖）
+- 📝 `scripts/validate-input.py` 在硬编码消息源 fallback 列表前补充 `NOTE` 注释，提醒维护者权威列表在 `references/news-sources.md`
+
+### v1.4.4 (2026-05-21)
+- 📋 **多步骤任务追踪提示**：在 SKILL.md 中新增对 Agent 内置 todo list 机制的协作提示（中英双语），明确标注「1 个强制前置步骤 + 6 个分析步骤 = 7 个不可省略环节」，降低「事实核查」前置步骤被跳过的风险
+- 🧹 元数据规范化：
+  - 移除非规范字段 `tools_required` 和 `compatibility`，将工具依赖与运行环境要求合并到 `description` 字段
+  - 字段简化后完全符合 [agentskills.io](https://agentskills.io/specification) 开放标准
+
+### v1.4.3 (2026-05-21)
+- 🔧 SKILL.md 元数据字段精简，对齐官方 Agent Skill 规范，仅保留 `name`/`description`/`metadata`/`license` 四个规范认可字段
 
 ### v1.4.2 (2026-05-21)
 - 🏷️ output-format.md 新增「领域背景注释输出规范」：5 类注释（术语释义/机构背景/逻辑机制/体系差异/历史脉络）与嵌入位置和格式的一一映射

@@ -23,6 +23,7 @@ Additionally, the Skill supports:
 - 🔄 **Multi-Mode Output**: Switch analysis depth with `translation only` / `brief` / `no reflection` commands
 -  **Batch Processing**: Input multiple articles at once, auto-numbered and segmented analysis
 - 📄 **Long-Text Processing**: For articles >2000 words, uses topic-aware segmentation with context bridging and full-text synthesis
+- 📋 **Multi-Step Task Tracking Hint**: Built-in collaboration hint for the Agent's todo list mechanism, preventing skips of mandatory pre-steps (especially fact-checking)
 - 🔐 **Input Security Validation**: Built-in input size limits and path validation
 
 ## Installation
@@ -92,6 +93,21 @@ news-linguistic-analyzer/
 - Input/output examples (5 scenarios): [references/examples.md](references/examples.md)
 
 ## Changelog
+
+### v1.4.5 (2026-05-21)
+- 🧹 **Logic deduplication**: Established single-source-of-truth principle to prevent multi-location definitions from drifting out of sync
+  - Removed the "fallback strategy" entry in `edge-cases.md` that duplicated SKILL.md, replaced with a cross-reference
+  - Removed the redundant "long text" entry in `edge-cases.md` (rule already covered in `long-text-processing.md`)
+- 📝 Added a `NOTE` comment in `scripts/validate-input.py` before the hard-coded news-sources fallback list, reminding maintainers that the authoritative list lives in `references/news-sources.md`
+
+### v1.4.4 (2026-05-21)
+- 📋 **Multi-step task tracking hint**: Added bilingual (CN/EN) collaboration hint in SKILL.md for the Agent's built-in todo list mechanism, explicitly stating "1 mandatory pre-step + 6 analysis steps = 7 non-omissible stages", reducing the risk of skipping the fact-checking pre-step
+- 🧹 Metadata normalization:
+  - Removed non-standard fields `tools_required` and `compatibility`, merged tool dependencies and runtime requirements into the `description` field
+  - The simplified metadata now fully complies with the [agentskills.io](https://agentskills.io/specification) open standard
+
+### v1.4.3 (2026-05-21)
+- 🔧 Trimmed SKILL.md metadata fields to align with the official Agent Skill spec, keeping only the four spec-recognized fields: `name`/`description`/`metadata`/`license`
 
 ### v1.4.2 (2026-05-21)
 - 🏷️ Added "Domain Annotation Output Rules" to output-format.md: 5 annotation types mapped to embedding positions and formats

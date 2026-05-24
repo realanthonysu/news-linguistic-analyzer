@@ -63,11 +63,49 @@ Iran Standoff and Peace Talks: Amid escalating tensions and stalled negotiations
 The IPO Strategy: SpaceX is reportedly preparing for a $1.75 trillion IPO. Adding a dominant software platform like Cursor allows Musk to pitch SpaceX not just as a rocket company, but as a diversified AI and Knowledge Work powerhouse to Wall Street.
 ```
 
-### 期望输出要点
+### 期望输出
 
-- 事实核查提示：`$1.75 trillion` 远超 SpaceX 已知估值，Cursor 与 SpaceX 无已知关联 → 添加 ⚠️ 警告
-- 用词分析重点：`reportedly`（模糊消息源）、`pitch...to Wall Street`（商业隐喻）、`powerhouse`（能源隐喻）
-- 句型拆解：动名词短语作主语（`Adding... allows...`）+ `not just as... but as...` 并列结构
+```markdown
+⚠️ 事实核查：经联网查询验证，该内容存在多处疑点。
+   查询摘要：SpaceX 当前估值约 3500 亿美元（2024 年数据），$1.75 trillion 远超合理范围；Cursor 为 AI 代码编辑器，与 SpaceX 无已知业务关联。该文本可能为假设性推演或 AI 生成内容。
+
+### 📝 中文翻译
+**IPO 策略**：据报道，SpaceX 正在筹备一项价值 1.75 万亿美元的 IPO。将 Cursor 这一主导性软件平台纳入旗下，使马斯克得以向华尔街推销 SpaceX——它不再仅仅是一家火箭公司，而是一个多元化的 AI 与知识工作巨头。
+✅ 翻译校验通过：原文 5 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `reportedly` | 据报道 | 模糊消息源归因词，暗示信息未经官方确认。新闻英语中用以规避法律风险，翻译时保留同等模糊度。 |
+| `pitch...to Wall Street` | 向华尔街推销 | `pitch` 本为投球/推销术语，商业语境中指向投资人展示项目价值。`Wall Street` 借代金融界，中文保留借代。 |
+| `powerhouse` | 巨头 | 原义"发电站"，引申为"强大的实体"。能源隐喻在商业报道中高频出现，中文对应"巨头/强企"。 |
+| `dominant` | 主导性的 | 市场份额语境下的高频形容词，暗示行业领导地位。中文"主导性"比"占统治地位的"更简洁。 |
+| `diversified` | 多元化的 | 金融/商业术语，指业务线多元化以分散风险。中文已形成固定对应译法。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：Adding a dominant software platform like Cursor allows Musk to pitch SpaceX not just as a rocket company, but as a diversified AI and Knowledge Work powerhouse to Wall Street.
+- 主干：Adding... allows Musk to pitch SpaceX
+    - 动名词短语（主语）：Adding a dominant software platform like Cursor
+    - 宾补结构：to pitch SpaceX not just as... but as...
+        - 并列对比：not just as a rocket company / but as a diversified AI and Knowledge Work powerhouse
+        - 介词短语（对象）：to Wall Street
+- 中文切分逻辑：英文以动名词短语作主语，信息密度高；中文需拆为因果句式（"将...纳入旗下，使...得以..."），避免欧化长主语。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **动名词短语作主语**：`Adding a dominant software platform like Cursor` 充当整句主语，是新闻英语压缩信息密度的典型手段。中文不常用动名词作主语，需转换为动宾短语或因果结构。
+2. **`not just as... but as...` 并列结构**：对比两种定位，形成递进修辞。翻译时保留对比节奏（"不再仅仅是...而是..."）。
+3. **不定式作宾补**：`to pitch SpaceX as...` 中 `as` 引导的介词短语充当补语，说明"推销成什么形象"。中文需补充动词（"得以推销为"）以保持流畅。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 动名词转因果 | `Adding... allows Musk to...` | 译为"将...纳入旗下，使...得以..." | 英文动名词作主语在中文中不自然，转为因果句式更符合中文逻辑链表达习惯 |
+| 模糊消息源保留 | `reportedly` | 译为"据报道" | 中文新闻同样使用"据报道/据悉"等模糊归因词，保留同等法律规避功能 |
+| 隐喻直译+意译结合 | `powerhouse` | 译为"巨头"而非"发电站" | 能源隐喻在中文商业语境中已有对应意译，直译反而费解 |
+
+### 🌍 延伸思考
+🌍 值得注意的是，`reportedly` 一词在原文中承担了重要的信息过滤功能——它暗示这些数据并非来自官方公告，而是基于传闻或推测。结合事实核查发现的疑点（$1.75 trillion 估值异常、Cursor 与 SpaceX 无已知关联），这段文本更接近投资推演或 AI 生成的假设性分析，而非真实新闻报道。翻译时保留 `reportedly` 的模糊性至关重要——若译为"据悉"可能暗示更高的可信度，"据报道"则更中性。此外，`pitch...to Wall Street` 的措辞本身带有推销色彩，暗示叙述者站在公司立场而非中立报道立场，这也是翻译和分析时需要注意的视角问题。
+```
 
 ---
 
