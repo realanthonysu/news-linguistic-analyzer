@@ -75,9 +75,11 @@ news-linguistic-analyzer/
 ├── scripts/
 │   └── validate-input.py # Input pre-validation script (CLI tool)
 ├── references/
+│   ├── batch-processing.md     # Batch processing rules
 │   ├── domain-adaptation.md    # Domain adaptation (10 domains triggers & notes)
 │   ├── edge-cases.md           # Edge cases & fallback strategies
 │   ├── examples.md             # Input/output examples (5 scenarios)
+│   ├── input-validation.md     # Input validation usage & fallback strategies
 │   ├── long-text-processing.md # Long-text processing rules
 │   ├── news-sources.md         # 19 news sources identification table
 │   ├── output-format.md        # Detailed output format specification
@@ -91,8 +93,18 @@ news-linguistic-analyzer/
 - Output format template: [references/output-format.md](references/output-format.md)
 - Quality checklist: [references/quality-checklist.md](references/quality-checklist.md)
 - Input/output examples (5 scenarios): [references/examples.md](references/examples.md)
+- Batch processing rules: [references/batch-processing.md](references/batch-processing.md)
+- Long-text processing rules: [references/long-text-processing.md](references/long-text-processing.md)
+- Input validation guide: [references/input-validation.md](references/input-validation.md)
 
 ## Changelog
+
+### v1.5.0 (2026-05-31)
+- 📦 **SKILL.md streamlined**: Moved full rules for "batch processing" and "input validation" to references/, keeping only brief descriptions and links in the main file
+  - Added `references/batch-processing.md`: batch splitting, output structure, quality checks
+  - Added `references/input-validation.md`: script usage, exit codes, inline fallback rules
+  - "Long-text processing" already had a dedicated file; SKILL.md section aligned to same brief style
+- 🎯 SKILL.md reduced from ~180 to ~160 lines, further lowering token overhead
 
 ### v1.4.5 (2026-05-21)
 - 🧹 **Logic deduplication**: Established single-source-of-truth principle to prevent multi-location definitions from drifting out of sync

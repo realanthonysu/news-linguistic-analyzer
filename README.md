@@ -77,9 +77,11 @@ news-linguistic-analyzer/
 ├── scripts/
 │   └── validate-input.py # 输入预校验脚本
 ├── references/
+│   ├── batch-processing.md     # 批量处理规则
 │   ├── domain-adaptation.md    # 领域自适应（10 大领域触发词与补充内容）
 │   ├── edge-cases.md           # 边缘情况处理与降级策略
 │   ├── examples.md             # 输入/输出对照示例（5 种场景）
+│   ├── input-validation.md     # 输入校验调用方式与降级方案
 │   ├── long-text-processing.md # 超长文本处理规则
 │   ├── news-sources.md         # 19 个消息源识别表
 │   ├── output-format.md        # 输出格式详细规范
@@ -93,8 +95,18 @@ news-linguistic-analyzer/
 - 输出格式模板：[references/output-format.md](references/output-format.md)
 - 质量检查清单：[references/quality-checklist.md](references/quality-checklist.md)
 - 输入/输出示例（5 种场景）：[references/examples.md](references/examples.md)
+- 批量处理规则：[references/batch-processing.md](references/batch-processing.md)
+- 超长文本处理规则：[references/long-text-processing.md](references/long-text-processing.md)
+- 输入校验说明：[references/input-validation.md](references/input-validation.md)
 
 ## 版本历史
+
+### v1.5.0 (2026-05-31)
+- 📦 **SKILL.md 精简**：将「批量处理」「输入校验」的完整规则移至 references/，主文件仅保留简要说明和链接
+  - 新增 `references/batch-processing.md`：批量处理的分割方式、输出结构、质量检查
+  - 新增 `references/input-validation.md`：脚本调用方式、退出码说明、内联判断降级方案
+  - 「超长文本处理」已有独立文件，SKILL.md 同步精简为一句话 + 链接
+- 🎯 SKILL.md 从 ~180 行精简至 ~160 行，进一步降低 token 开销
 
 ### v1.4.6 (2026-05-24)
 - 🔧 **元数据规范优化**：从 `description` 拆出工具依赖和环境要求

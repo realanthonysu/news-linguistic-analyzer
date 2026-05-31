@@ -5,7 +5,7 @@ compatibility: "Requires web_search and web_fetch tools for the mandatory fact-c
 allowed-tools: "web_search web_fetch"
 metadata:
   author: anthonysu
-  version: "1.4.6"
+  version: "1.5.0"
 license: MIT
 ---
 
@@ -131,40 +131,21 @@ license: MIT
 
 ### 批量处理
 
-当用户一次性提供多段新闻时：
-1. 按 `---` 或空行分割
-2. 为每段添加序号标题：`## 【新闻 N】原标题`
-3. 依次执行 6 步分析，段间用 `---` 分隔
-4. 末尾添加「📊 批量分析小结」
+多段新闻按 `---` 或空行分割，每段独立执行 6 步分析，末尾添加批量小结。
+
+完整规则（分割方式、输出结构、质量检查）见 [references/batch-processing.md](references/batch-processing.md)。
 
 ### 超长文本处理
 
-当单篇新闻超过 2000 词时，采用**主题感知分段策略**。
+单篇超过 2000 词时，采用主题感知分段策略，保留上下文衔接。
 
-完整规则（分段原则、上下文衔接、输出结构模板、与批量处理对比）见 [references/long-text-processing.md](references/long-text-processing.md)。
+完整规则（分段原则、上下文衔接、输出结构模板）见 [references/long-text-processing.md](references/long-text-processing.md)。
 
 ## 输入校验（可选）
 
-当不确定输入是否为新闻文本时，可运行预校验脚本辅助判断。
+当不确定输入是否为新闻文本时，可运行 `scripts/validate-input.py` 辅助判断。根据退出码决定后续操作（`0`=正常执行，`1`=添加待确认提示，`2`=询问用户是否继续）。
 
-**方式一（推荐）**：通过 stdin 管道输入，无需临时文件：
-
-```bash
-echo "<用户输入内容>" | python scripts/validate-input.py
-```
-
-**方式二**：传入文件路径参数：
-
-```bash
-python scripts/validate-input.py <文件路径>
-```
-
-根据退出码决定后续操作：
-- 返回码 `0`：正常执行分析
-- 返回码 `1`：在输出开头添加「❓ 内容属性待确认」提示
-- 返回码 `2`：回复「该内容疑似非新闻文本，是否仍要执行语言分析？[是/否]」
-
-> 如无法执行脚本，可按以下规则内联判断：检测消息源标识、新闻高频动词（reports/announced/stated）、时效性词汇；如含虚构标记词（fiction/scenario/hypothetical）则触发事实核查。
+完整调用方式、退出码说明和内联判断降级方案见 [references/input-validation.md](references/input-validation.md)。
 
 ## 边缘情况与错误处理
 
