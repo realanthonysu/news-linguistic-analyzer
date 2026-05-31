@@ -19,7 +19,7 @@ CN · [EN](README.en.md)
 
 此外，Skill 还支持：
 - 🎯 **领域自适应**：覆盖金融、体育、科技、地缘政治、医疗健康、环境气候、法律司法、教育科研、军事防务、社会民生等 10 大领域，关键词自动补充背景注释
-- ️ **事实核查**：检测未来日期、虚构内容、AI 生成标记并自动预警
+- 🚨 **事实核查**：强制前置步骤，检测具体日期、人名+重大事件、伤亡/损失数据等自动联网验证；检测虚构标记词直接标注内容属性
 - 🔄 **多模式输出**：`仅需翻译` / `简洁模式` / `跳过延伸` 等指令切换分析深度
 - 📦 **批量处理**：一次输入多篇新闻，自动分段编号分析
 - 📄 **超长文本处理**：>2000 词新闻采用主题感知分段策略，保留上下文衔接并生成全文综述
@@ -94,12 +94,22 @@ news-linguistic-analyzer/
 - 完整分析流程与规范：[SKILL.md](SKILL.md)
 - 输出格式模板：[references/output-format.md](references/output-format.md)
 - 质量检查清单：[references/quality-checklist.md](references/quality-checklist.md)
-- 输入/输出示例（5 种场景）：[references/examples.md](references/examples.md)
+- 输入/输出示例（8 种场景）：[references/examples.md](references/examples.md)
 - 批量处理规则：[references/batch-processing.md](references/batch-processing.md)
 - 超长文本处理规则：[references/long-text-processing.md](references/long-text-processing.md)
 - 输入校验说明：[references/input-validation.md](references/input-validation.md)
 
 ## 版本历史
+
+### v1.6.0 (2026-05-31)
+- 🗜️ **Token 效率优化**：多步骤任务提示去重、事实核查触发条件表精简、使用模式表压缩
+- 🔧 **动态上下文注入**：SKILL.md 新增 `` !`date +%Y-%m-%d` `` 命令注入，事实核查步骤可自动获取当前日期（Claude Code 专有，其他平台自动降级）
+
+### v1.5.1 (2026-05-31)
+- 🚨 **事实核查提示格式统一**：将「虚构标记词」从强制触发条件中移出为特殊路径，检测到虚构标记词时跳过 web search 直接标注
+- 📝 **统一两种提示格式**：「⚠️ 事实核查」= 已联网验证；「⚠️ 内容属性提示」= 检测到虚构标记词，无需联网
+- 📦 **新增 3 个示例**（examples.md 从 5 个扩增至 8 个）：事实核查触发（已联网验证）、垂直领域医疗健康、「跳过延伸」模式
+- 🔗 **quality-checklist.md 交叉引用补全**：批量处理和超长文本附加检查处补充快速对照清单，形成双向引用链
 
 ### v1.5.0 (2026-05-31)
 - 📦 **SKILL.md 精简**：将「批量处理」「输入校验」的完整规则移至 references/，主文件仅保留简要说明和链接

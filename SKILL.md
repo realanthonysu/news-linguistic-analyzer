@@ -5,7 +5,7 @@ compatibility: "Requires web_search and web_fetch tools for the mandatory fact-c
 allowed-tools: "web_search web_fetch"
 metadata:
   author: anthonysu
-  version: "1.5.0"
+  version: "1.6.0"
 license: MIT
 ---
 
@@ -13,9 +13,11 @@ license: MIT
 
 当用户提供一段英文新闻文本时，**必须首先执行事实核查**，然后再进行后续 6 步分析。
 
-> **📋 多步骤任务提示**：本 skill 包含 **1 个强制前置步骤 + 6 个分析步骤**，共 7 个不可省略的环节。如果agent 内置了任务追踪机制（如 todo list / task plan），**强烈建议**在开始前创建任务清单，逐步标记完成状态，以确保不遗漏任何环节（尤其是「事实核查」前置步骤）。
->
-> **Multi-step Task Notice**: This skill contains **1 mandatory pre-step + 6 analysis steps**. If agent supports a task tracking mechanism (e.g., todo list), it is **strongly recommended** to create a checklist before starting and mark each step as completed, to avoid skipping any step (especially the mandatory fact-checking).
+## 当前日期
+
+!`date +%Y-%m-%d`
+
+> **📋 多步骤任务提示**：本 skill 包含 **1 个强制前置步骤 + 6 个分析步骤**。如 Agent 支持任务追踪（todo list），建议开始前创建清单，逐步标记完成状态。
 
 ## 🚨 事实核查（强制前置步骤）
 
@@ -25,12 +27,11 @@ license: MIT
 
 | 触发条件 | 说明 |
 |---------|------|
-| 含具体日期 | 识别到任何具体日期（如 `September 1`、`2026`、`last week` 等），无论过去/未来/当前 |
-| 人名+重大事件组合 | 识别到具体人名与重大事件关键词同时出现（如 `President Trump + cancelled a trip`） |
-| 伤亡/损失等敏感数据 | 含伤亡数字、经济损失金额、灾害规模等可能引发重大社会影响的数据 |
-| 正在进行的重大事件 | 涉及当前正在发生或持续发展的国际/国内重大事件 |
-| 与已知事实冲突 | 人物/事件与模型内置知识中的已知事实明显矛盾 |
-| 虚构标记词 | 含 `fiction`, `scenario`, `hypothetical`, `AI-generated` 等标记 |
+| 含具体日期 | 任何具体日期（过去/未来/当前均触发） |
+| 人名+重大事件 | 具体人名与重大事件关键词同时出现 |
+| 伤亡/损失数据 | 伤亡数字、经济损失、灾害规模等 |
+| 正在进行的重大事件 | 当前持续发展的国际/国内重大事件 |
+| 与已知事实冲突 | 与模型内置知识明显矛盾 |
 
 **触发后执行**：
 1. **调用 web search 工具**，执行双语查询：
@@ -42,6 +43,18 @@ license: MIT
 ⚠️ 事实核查：经联网查询验证，[该事件为真实发生 / 该事件尚未发生 / 未找到相关权威报道]
    查询摘要：[1-2 句话概括搜索结果]
 ```
+
+> 完整事实核查输出格式规范见 [references/output-format.md](references/output-format.md)。
+
+### 特殊路径：虚构标记词（不触发 web search，直接标注）
+
+当检测到 `fiction`、`scenario`、`hypothetical`、`AI-generated` 等虚构标记词时，**跳过 web search**，直接标注：
+
+```text
+⚠️ 内容属性提示：本段文本包含虚构标记词（如 hypothetical、AI-generated 等），可能为情景推演、创作练习或 AI 生成内容。请结合权威信源交叉验证后再作引用。
+```
+
+> **区分**：「⚠️ 事实核查」= 已联网验证；「⚠️ 内容属性提示」= 检测到虚构标记词，无需联网。
 
 ### 第二层：模型评估（无明确触发条件时）
 
@@ -103,13 +116,13 @@ license: MIT
 
 ## 使用模式
 
-| 用户指令关键词 | 策略 |
+| 触发关键词 | 策略 |
 |------|------|
-| 仅需翻译 / translation only | 仅输出步骤 1 |
-| 跳过延伸 / no reflection | 省略步骤 6 |
-| 简洁模式 / brief | 用词分析限 3 项，技巧提示限 2 项 |
+| `仅需翻译` / `translation only` | 仅输出步骤 1 |
+| `跳过延伸` / `no reflection` | 省略步骤 6 |
+| `简洁模式` / `brief` | 用词分析限 3 项，技巧提示限 2 项 |
 
-> **模式冲突优先级**：仅需翻译 > 简洁模式 > 跳过延伸 > 默认完整模式。当用户同时发出多个模式指令时，按此优先级取最高级执行。
+> **优先级**：仅需翻译 > 简洁模式 > 跳过延伸 > 默认完整。多个模式指令同时出现时，取最高级执行。
 
 ## 领域自适应
 

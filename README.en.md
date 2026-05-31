@@ -19,7 +19,7 @@ This Skill provides English-to-Chinese news translation and multi-dimensional li
 
 Additionally, the Skill supports:
 - 🎯 **Domain Adaptation**: Auto-supplements background notes for 10 domains: finance, sports, tech, geopolitics, healthcare, climate & environment, law & justice, education & research, military & defense, social & civic issues
-- 🛡️ **Fact Checking**: Detects future dates, fictional content, AI-generated markers and auto-warns
+- 🚨 **Fact Checking**: Mandatory pre-step — auto-triggers web search for specific dates, names+major events, casualty/loss data; directly flags content attributes when fiction markers are detected
 - 🔄 **Multi-Mode Output**: Switch analysis depth with `translation only` / `brief` / `no reflection` commands
 -  **Batch Processing**: Input multiple articles at once, auto-numbered and segmented analysis
 - 📄 **Long-Text Processing**: For articles >2000 words, uses topic-aware segmentation with context bridging and full-text synthesis
@@ -92,12 +92,22 @@ news-linguistic-analyzer/
 - Full analysis workflow & specifications: [SKILL.md](SKILL.md)
 - Output format template: [references/output-format.md](references/output-format.md)
 - Quality checklist: [references/quality-checklist.md](references/quality-checklist.md)
-- Input/output examples (5 scenarios): [references/examples.md](references/examples.md)
+- Input/output examples (8 scenarios): [references/examples.md](references/examples.md)
 - Batch processing rules: [references/batch-processing.md](references/batch-processing.md)
 - Long-text processing rules: [references/long-text-processing.md](references/long-text-processing.md)
 - Input validation guide: [references/input-validation.md](references/input-validation.md)
 
 ## Changelog
+
+### v1.6.0 (2026-05-31)
+- 🗜️ **Token efficiency**: Removed bilingual duplication in multi-step task notice, compressed fact-check trigger table and usage mode table
+- 🔧 **Dynamic context injection**: Added `` !`date +%Y-%m-%d` `` command in SKILL.md for automatic current-date injection during fact-checking (Claude Code specific; other platforms gracefully degrade)
+
+### v1.5.1 (2026-05-31)
+- 🚨 **Fact-check output unified**: Moved "fiction markers" from mandatory triggers to a special path — when fiction markers are detected, skip web search and directly annotate content attributes
+- 📝 **Unified two output formats**: "⚠️ 事实核查" = web-verified; "⚠️ 内容属性提示" = fiction marker detected, no web search needed
+- 📦 **Added 3 new examples** (examples.md expanded from 5 to 8): fact-check triggered (web-verified), vertical domain healthcare, "no reflection" mode
+- 🔗 **quality-checklist.md cross-reference completed**: Added quick-reference checklists for batch processing and long-text sections, forming bidirectional reference chains
 
 ### v1.5.0 (2026-05-31)
 - 📦 **SKILL.md streamlined**: Moved full rules for "batch processing" and "input validation" to references/, keeping only brief descriptions and links in the main file

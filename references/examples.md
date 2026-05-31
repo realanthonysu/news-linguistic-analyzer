@@ -137,7 +137,7 @@ In 2030, Mars Colony One will celebrate its 5th anniversary. President Elon Musk
 ### 期望输出开头
 
 ```text
-⚠️ 内容属性提示：本段文本包含未来日期（2030）、虚构情节（Mars Colony One）及虚构标记词（hypothetical scenario），可能为情景推演、创作练习或 AI 生成内容。请结合权威信源交叉验证后再作引用。
+⚠️ 内容属性提示：本段文本包含虚构标记词（hypothetical scenario），可能为情景推演、创作练习或 AI 生成内容。请结合权威信源交叉验证后再作引用。
 
 ### 📝 中文翻译
 ...
@@ -184,3 +184,131 @@ Markets React: Oil prices surged following the announcement.
 - 高频术语：...
 - 共性翻译难点：...
 ```
+
+---
+
+## 示例 6：事实核查触发（已联网验证）
+
+### 输入
+
+```text
+Trade War Escalation: On May 15, 2026, President Trump announced new tariffs of 25% on Chinese imports, citing national security concerns under Section 301. The move drew swift condemnation from Beijing, with the Chinese Ministry of Commerce calling it "economic coercion."
+```
+
+### 期望输出开头
+
+```text
+⚠️ 事实核查：经联网查询验证，该事件为真实发生。
+   查询摘要：2026年5月15日，特朗普政府确实在当日宣布了对中国进口商品加征25%关税的措施，援引301条款。中国商务部回应"经济胁迫"的报道已被路透社、美联社等多家权威媒体证实。
+
+### 📝 中文翻译
+**贸易战升级**：2026年5月15日，特朗普总统宣布对中国进口商品加征25%关税，援引《301条款》下的国家安全关切。此举迅速遭到北京强烈谴责，中国商务部称之为"经济胁迫"。
+✅ 翻译校验通过：原文 6 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `escalation` | 升级 | 冲突/对抗语境高频词，指事态恶化。新闻标题中常用名词化形式压缩信息。 |
+| `tariffs` | 关税 | 贸易政策核心术语，`25% tariffs on Chinese imports` 为固定搭配结构。 |
+| `national security concerns` | 国家安全关切 | 外交/贸易政策中的委婉表达，实际指"以国家安全为由"。中文"关切"比"担忧"更中性。 |
+| `swift condemnation` | 迅速谴责 | `swift` 强调反应速度，新闻中常见搭配。中文四字格"迅速谴责"节奏紧凑。 |
+| `economic coercion` | 经济胁迫 | 国际关系高频术语，指通过经济手段施压。中文已有固定译法。 |
+
+（后续完整 6 步分析略）
+```
+
+---
+
+## 示例 7：垂直领域 — 医疗健康新闻
+
+### 输入
+
+```text
+FDA Approves New Alzheimer's Drug: The FDA has granted accelerated approval to lecanemab, a monoclonal antibody targeting amyloid beta plaques. Clinical trials showed a 27% reduction in cognitive decline over 18 months, though the drug carries risks of brain swelling and microhemorrhages.
+```
+
+### 期望输出
+
+```markdown
+### 📝 中文翻译
+**FDA 批准新型阿尔茨海默病药物**：美国食品药品监督管理局已加速批准 lecanemab（仑卡奈单抗），这是一种靶向 β-淀粉样蛋白斑块的单克隆抗体。临床试验显示，该药物在 18 个月内使认知衰退减少了 27%，但存在脑肿胀和微出血风险。
+✅ 翻译校验通过：原文 7 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `accelerated approval` | 加速批准 | FDA 专有审批通道，用于严重疾病且现有疗法有限的情况。🏛️ [背景说明] 加速批准基于替代终点（如生物标志物），需后续确证性试验验证临床获益。 |
+| `lecanemab` | 仑卡奈单抗 | 单克隆抗体药物名。🏛️ [背景说明] 由卫材和渤健联合开发，2023年首次获FDA批准，是阿尔茨海默病领域突破性疗法。 |
+| `monoclonal antibody` | 单克隆抗体 | 生物制药术语，指由单一B细胞克隆产生的均一抗体。 |
+| `amyloid beta plaques` | β-淀粉样蛋白斑块 | 阿尔茨海默病病理标志物。🏛️ [背景说明] Aβ沉积是AD"淀粉样蛋白级联假说"的核心，靶向清除Aβ是该领域主要研发方向。 |
+| `cognitive decline` | 认知衰退 | 神经退行性疾病语境高频术语，比"dementia"更中性，涵盖轻度到重度范围。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：Clinical trials showed a 27% reduction in cognitive decline over 18 months, though the drug carries risks of brain swelling and microhemorrhages.
+- 主干：Clinical trials showed a 27% reduction
+    - 介词短语（范围）：in cognitive decline
+    - 时间状语：over 18 months
+    - 让步状语从句：though the drug carries risks of brain swelling and microhemorrhages
+- 中文切分逻辑：英文将让步从句后置；中文需前置或用"但"转折处理为并列句。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **现在完成时 + 被动语态**：`has granted accelerated approval` 表示已完成的动作及其对当前的影响，是医药新闻中报告监管决策的标准时态。
+2. **though 引导让步状语从句**：平衡疗效与风险的信息，体现新闻报道的客观性原则。中文用"但"转折处理。
+3. **动名词复合结构**：`brain swelling and microhemorrhages` 并列说明不良反应类型，医学术语需准确对应中文专业译法。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 机构名+简称展开 | `FDA` | 译为"美国食品药品监督管理局" | 中文新闻首次出现机构名需全称，后文可用简称 |
+| 药名保留原文+附译名 | `lecanemab` | 译为"lecanemab（仑卡奈单抗）" | 药物通用名翻译需兼顾国际通用名和中文标准译名 |
+| 数据精确还原 | `27% reduction` | 译为"减少了 27%" | 医疗新闻中数据准确性优先，不可模糊处理 |
+
+### 🌍 延伸思考
+🌍 本段报道中的 `accelerated approval` 是一个值得关注的监管术语。它不同于常规批准，而是基于替代终点（如影像学指标）的快速通道审批，意味着药物上市时其临床获益尚未得到充分确证。翻译时保留"加速"二字的精准性至关重要——若译为"快速批准"可能暗示速度而非监管路径差异。此外，`carries risks of brain swelling and microhemorrhages` 的措辞体现了医药新闻的伦理要求：在报告疗效的同时必须同等强调风险，这是医药报道与一般新闻的重要区别。
+```
+
+---
+
+## 示例 8：「跳过延伸」模式
+
+### 用户指令
+
+```text
+跳过延伸：The United Nations has called for an immediate ceasefire in Gaza, as humanitarian conditions continue to deteriorate. Secretary-General António Guterres described the situation as "untenable," urging all parties to prioritize civilian protection.
+```
+
+### 期望输出（省略步骤 6，含步骤 1-5）
+
+```markdown
+### 📝 中文翻译
+联合国呼吁在加沙立即停火，因人道主义局势持续恶化。秘书长安东尼奥·古特雷斯将局势形容为"不可持续"，敦促各方优先保护平民。
+✅ 翻译校验通过：原文 5 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `ceasefire` | 停火 | 冲突/外交语境核心术语，与 `truce`（休战）相比，`ceasefire` 更强调正式停止军事行动。 |
+| `deteriorate` | 恶化 | 描述局势/条件下降的正式用词，新闻中高频搭配为 `continue to deteriorate`（持续恶化）。 |
+| `untenable` | 不可持续的 | 原义为"无法防守的"（军事术语），引申为"无法维持的"。外交辞令中表达"局面已无法容忍"。 |
+| `civilian protection` | 保护平民 | 国际法/人道主义高频术语。中文语序调整为动宾结构"保护平民"而非"平民保护"。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：Secretary-General António Guterres described the situation as "untenable," urging all parties to prioritize civilian protection.
+- 主干：Secretary-General António Guterres described the situation
+    - 介词补语：as "untenable"
+    - 现在分词（伴随动作）：urging all parties to prioritize civilian protection
+- 中文切分逻辑：英文用分词表伴随；中文拆为独立分句"并敦促……"，符合中文叙事节奏。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **describe...as 结构**：引用 + 评价的经典新闻句式，将直接引语嵌入陈述中。中文用"形容为/称"对应。
+2. **现在分词作伴随状语**：`urging all parties...` 补充说明表态的同时发出的呼吁。新闻英语中用于压缩信息密度。
+3. **消息源位置**：联合国秘书长身份在句首标注，是新闻归因的标准方式。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 外交辞令降级 | `described as "untenable"` | 译为"形容为'不可持续'" | 外交语境中 `untenable` 是强烈但克制的措辞，中文"不可持续"保留同等语义强度 |
+| 分词转并列句 | `urging all parties to...` | 译为"并敦促各方……" | 英文分词表伴随，中文需转为并列谓语避免欧化句式 |
+```
+
+> 注：因用户指令为「跳过延伸」，步骤 6（🌍 延伸思考）已省略。

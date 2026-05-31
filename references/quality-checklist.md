@@ -37,10 +37,21 @@
 
 ## 🔄 批量处理附加检查
 
-见 [batch-processing.md](batch-processing.md)「质量检查」章节。
+完整质量检查项见 [batch-processing.md](batch-processing.md)「质量检查」章节。
+
+**快速对照**：
+- [ ] 多段新闻已正确分割并编号
+- [ ] 每段分析结构完整，无交叉混淆
+- [ ] 末尾含「📊 批量分析小结」
 
 ## 📏 超长文本附加检查（>2000 词）
 
-见 [long-text-processing.md](long-text-processing.md)「质量检查清单」章节。
+完整质量检查项见 [long-text-processing.md](long-text-processing.md)「质量检查清单」章节。
+
+**快速对照**：
+- [ ] 分段切分点位于自然段落边界或主题转换处
+- [ ] 第 2 段起均包含「📎 上文衔接」行
+- [ ] 末尾含「📊 全文综述」
+- [ ] 同一术语在不同段落的译法保持一致
 
 > 💡 自检通过后，方可输出最终结果。如有任一 [必检] 项未通过，请优先修正。
