@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.8.0 (2026-06-05)
+
+- **事实核查置信度标注**：
+  - `output-format.md` 新增「格式 A2：⚠️ 事实核查（低置信度）」，覆盖单一信源、多源矛盾、关键细节不一致、非权威渠道四种场景
+  - `SKILL.md` 事实核查输出格式同步增加低置信度模板
+  - `quality-checklist.md` 事实核查部分新增低置信度格式使用检查项
+- **超长文本处理完整示例**：
+  - `examples.md` 新增示例 9（气候变化峰会长文），完整展示分段主题标题、📎 上文衔接、📊 全文综述三大结构要素
+- **领域自适应优先级启发式**：
+  - `domain-adaptation.md` 新增四级优先级规则（标题关键词 > 触发词密度 > 谓语动作归属 > 消息源身份）
+  - 新增四种不应触发领域注释的场景（比喻用法、否定语境、跨领域通用词、历史回顾引用）
+  - 设定单篇最多注入 2 个领域注释的上限
+- **消息源扩展**：`news-sources.md` 从 19 个增至 27 个，新增 AFP、共同社、韩联社、财新、南华早报、塔斯社、安莎社
+- **脚本修复与改进**：
+  - `validate-input.py` 修复消息源匹配 IndexError（`any()` + `[0]` 改为 `next()` 单次查找）
+  - 时间词列表补全周一至周日（原仅有 Saturday/Sunday），全部改为小写修复大小写不匹配 bug
+  - `fiction_markers` 中 `AI-generated` 改为 `ai-generated` 修复 `text.lower()` 比较时大写不匹配 bug
+  - 修复 `format_validation_report` 中 ⚠️ emoji 重复显示问题
+  - 移除重复 `import sys`
+  - fallback 列表同步新增 7 个消息源
+- **工程规范**：
+  - `.gitignore` 从 4 行扩展为按类别分组的完整忽略规则（Python/OS/IDE）
+  - `pyproject.toml` 新增 PEP 621 `[project]` 元数据和 `[tool.ruff]` 配置
+  - `SKILL.md` 日期注入增加三级降级策略（系统上下文 → `date` 命令 → 标注跳过）
+- **文档同步**：
+  - `quality-checklist.md` 超长文本快速参考从 4 项补齐到 6 项，与 `long-text-processing.md` 源文件一致
+  - `output-format.md` 用词分析表格列头统一为 `英文原词/短语 | 中文对应 | 语境与搭配特点`
+  - `edge-cases.md` 新增纯非英语输入和含 HTML/Markdown 标记文本的处理指引
+- **单元测试**：新增 `tests/test_validate_input.py`，7 个测试类 29 个用例，覆盖消息源检测、时间词、负向特征、地名+事件、输入大小限制、结果判定、报告格式化
+
+## v1.7.0 (2026-06-01)
+
+- **Skill 规范性优化**：
+  - SKILL.md 新增「如何触发」章节，明确自然语言匹配、关键词匹配、显式调用三种触发方式
+  - SKILL.md 新增 `!`date`` 命令注入的作用说明，标注跨平台兼容性行为
+  - description 字段重构：核心触发语义前置，移除冗余措辞，提升 Agent 路由匹配权重
+  - compatibility 字段补充 `allowed-tools` 不支持时的 fallback 说明
+- **类型检查配置**：
+  - `scripts/validate-input.py` 添加 TypedDict 类型注解（ValidationResult）
+  - 新增 `pyproject.toml` 配置 mypy 静态类型检查
+  - 修复 `sys.stdout.reconfigure` 类型兼容性问题（hasattr 替代 try/except）
+
 ## v1.6.0 (2026-05-31)
 
 - **Token 效率优化**：

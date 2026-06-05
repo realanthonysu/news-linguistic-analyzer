@@ -312,3 +312,119 @@ FDA Approves New Alzheimer's Drug: The FDA has granted accelerated approval to l
 ```
 
 > 注：因用户指令为「跳过延伸」，步骤 6（🌍 延伸思考）已省略。
+
+---
+
+## 示例 9：超长文本处理（>2000 词）
+
+### 输入
+
+> 以下为单篇超长新闻的**结构示意**（实际输入为连续长文，无 `---` 分隔）。输入以 `[... 第 N 段，约 500 词 ...]` 标注省略位置。
+
+```text
+Global Climate Summit Reaches Landmark Agreement on Carbon Reduction
+
+World leaders gathered in Geneva for the 47th session of the UN Climate Conference, where after two weeks of intense negotiations, a landmark agreement was reached to reduce global carbon emissions by 55% by 2035 compared to 2005 levels. The agreement, dubbed the "Geneva Accord," represents the most ambitious climate commitment since the Paris Agreement of 2015.
+
+[... 第 1 段后续，约 400 词：谈判过程、各方立场 ...]
+
+However, the implementation mechanism remains contentious. Developing nations, led by India and Brazil, insisted on a differentiated timeline, arguing that historical emissions from industrialized countries should be factored into reduction targets. The compromise text allows developing economies a five-year grace period before mandatory compliance begins.
+
+[... 第 2 段，约 600 词：资金机制、碳交易市场、技术转让条款 ...]
+
+Meanwhile, the financial package attached to the accord has drawn both praise and criticism. A $500 billion Green Transition Fund will be established, financed primarily by G7 nations, to support renewable energy infrastructure in the Global South. Environmental groups welcomed the funding but questioned whether the pledged amounts would materialize, citing the unfulfilled $100 billion annual climate finance promise from COP15.
+
+[... 第 3 段，约 500 词：各国反应、NGO 评价、后续展望 ...]
+
+Back in Washington, the domestic political implications are already becoming clear. The administration faces a skeptical Congress, where opposition leaders have signaled they will challenge the agreement's ratification. Industry lobbyists, particularly from the fossil fuel sector, have warned of economic consequences, while clean energy advocates argue the accord will accelerate the already underway energy transition.
+```
+
+### 期望输出结构
+
+```markdown
+## 【第 1 段】谈判达成与协议框架
+
+### 📝 中文翻译
+**全球气候峰会就碳减排达成里程碑协议**
+
+世界各国领导人齐聚日内瓦，出席第 47 届联合国气候大会。经过两周密集谈判，各方达成了一项里程碑式协议：到 2035 年将全球碳排放量在 2005 年基础上减少 55%。该协议被命名为"日内瓦协议"，是自 2015 年《巴黎协定》以来最具雄心的气候承诺。
+
+[... 译文 ...]
+
+然而，执行机制仍存争议。以印度和巴西为首的发展中国家坚持差异化时间表，主张工业化国家的历史排放应纳入减排目标考量。最终妥协文本允许发展中经济体在强制合规前享有五年宽限期。
+✅ 翻译校验通过：原文 8 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `landmark agreement` | 里程碑式协议 | `landmark` 原指地标，引申为标志性成就。外交语境高频搭配，暗示突破性。 |
+| `differentiated timeline` | 差异化时间表 | 气候谈判核心术语。🏛️ [背景说明] 源自"共同但有区别的责任"原则（CBDR），是发展中国家谈判底牌。 |
+| `grace period` | 宽限期 | 法律/金融术语，指正式执行前的缓冲阶段。中文"宽限"比"过渡期"更强调宽容含义。 |
+| `compliance` | 合规 | 国际法语境中指遵守条约义务，比"遵守"更具正式约束力色彩。 |
+| `contentious` | 存争议的 | 外交报道中替代 `controversial` 的高频词，语气更中性克制。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：Developing nations, led by India and Brazil, insisted on a differentiated timeline, arguing that historical emissions from industrialized countries should be factored into reduction targets.
+- 主干：Developing nations insisted on a differentiated timeline
+    - 过去分词（后置定语）：led by India and Brazil
+    - 现在分词（伴随状语/原因）：arguing that...
+        - 宾语从句：historical emissions should be factored into reduction targets
+- 中文切分逻辑：英文用分词短语层层嵌套；中文需拆为多个短句（"以印度和巴西为首的发展中国家坚持……，主张……"）。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **过去分词作后置定语**：`led by India and Brazil` 修饰 `Developing nations`，新闻英语中常用此结构压缩信息来源。中文需前置为"以……为首的"。
+2. **arguing that 引导原因性伴随**：表面是伴随状语，实际暗含因果逻辑（因为主张历史排放应纳入考量，所以坚持差异化时间表）。中文可显化为"理由是/主张"。
+3. **被动语态**：`should be factored into` 体现客观陈述立场，避免指明施动者。中文可保留被动（"应被纳入"）或转为主动（"应纳入"）。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 外交术语精确定位 | `differentiated timeline` | 译为"差异化时间表" | 气候谈判中"差异化"有特定法律含义，不可译为"不同的时间安排" |
+| 分词转短句链 | `arguing that...` | 译为"主张……"独立短句 | 英文分词嵌套在中文中易导致欧化长句，拆为短句更符合中文节奏 |
+| 被动转主动 | `should be factored into` | 译为"应纳入" | 中文偏好主动句式，省略施动者时仍可用主动表达被动含义 |
+
+### 🌍 延伸思考
+🌍 本段中 `contentious` 一词的选择耐人寻味——它比 `controversial` 更中性，暗示分歧是谈判的正常组成部分而非异常状态，反映了国际气候报道中常见的"建设性紧张"叙事框架。此外，`grace period` 的翻译需注意其法律内涵——这不仅是"过渡期"，更包含了对发展中国家的制度性宽容，这一层含义在中文翻译中容易丢失。
+
+---
+
+## 【第 2 段】资金机制与碳交易市场
+
+📎 上文衔接：前段报道了日内瓦协议的达成过程及减排目标中的差异化安排争议
+
+### 📝 中文翻译
+[... 译文 ...]
+✅ 翻译校验通过：原文 N 个关键信息点均已体现
+
+### 🔍 用词分析
+[... 含领域注释如 `🏛️ [背景说明]` ...]
+
+（完整 6 步分析）
+
+---
+
+## 【第 3 段】各国反应与国内政治影响
+
+📎 上文衔接：前段分析了协议的资金机制条款及碳交易市场设计
+
+### 📝 中文翻译
+[... 译文 ...]
+✅ 翻译校验通过：原文 N 个关键信息点均已体现
+
+（完整 6 步分析）
+
+---
+
+## 📊 全文综述
+
+### 主题脉络
+全文呈现**递进结构**：第 1 段（协议达成与核心条款）→ 第 2 段（执行机制与资金安排）→ 第 3 段（各方反应与国内政治博弈）。三段之间由 `However`（转折至执行争议）、`Meanwhile`（并列至资金机制）、`Back in Washington`（焦点切换至国内）三个过渡词串联，形成"国际共识 → 执行挑战 → 国内落地"的叙事弧线。
+
+### 共性翻译难点
+- **气候谈判术语群**：`differentiated timeline`、`grace period`、`compliance`、`mandatory` 等术语在第 1、2 段反复出现，需保持全文译法一致（"差异化时间表"、"宽限期"、"合规"、"强制性"）
+- **被动语态密集**：全文被动语态使用率高于一般新闻，反映外交文本的客观立场要求。中文处理策略统一为"能转主动则转，不能转则保留被动"
+
+### 语言特征总结
+- 时态分布：第 1 段以现在完成时（`has been reached`）和过去时为主，体现"已达成协议"的新闻时效性；第 3 段转为现在进行时（`are becoming clear`），暗示事态仍在发展
+- 消息源模式：全文未使用直接引语，而依赖间接归因（`arguing that`、`warned that`、`citing`），是外交报道中常见的"去个人化"修辞策略
+```

@@ -1,11 +1,11 @@
 ---
 name: news-linguistic-analyzer
-description: "This skill translates English news articles into Chinese and performs multi-dimensional linguistic analysis (lexical, syntactic, grammatical, translation techniques, critical reflection). Use when the user provides English news text from sources like Reuters, BBC, AP, CNN, Bloomberg, or asks to translate and analyze news reports, breaking news, or news articles. Also triggers on: 英文新闻翻译, 新闻分析, 用词分析, 句法分析, translate and analyze news. Do NOT use for non-news English text, poetry, fiction, or general translation without linguistic analysis."
-compatibility: "Requires web_search and web_fetch tools for the mandatory fact-checking step. Python 3.8+ for the optional scripts/validate-input.py."
+description: "Translates English news articles into Chinese with multi-dimensional linguistic analysis. Triggers on: English news text (Reuters, BBC, AP, CNN, Bloomberg), 英文新闻翻译, 新闻分析, translate and analyze news. Performs fact-checking, lexical/syntactic/grammatical analysis, and critical reflection. Do NOT use for non-news text, poetry, fiction, or general translation without analysis."
+compatibility: "Requires web_search and web_fetch tools for the mandatory fact-checking step. If your Agent does not support the allowed-tools field, ensure web_search and web_fetch are available. Python 3.8+ for the optional scripts/validate-input.py."
 allowed-tools: "web_search web_fetch"
 metadata:
   author: anthonysu
-  version: "1.6.0"
+  version: "1.8.0"
 license: MIT
 ---
 
@@ -17,7 +17,24 @@ license: MIT
 
 !`date +%Y-%m-%d`
 
+> **动态命令注入**：此行在支持的 Agent（如 Claude Code）环境中会展开为当前日期，供事实核查步骤进行日期校验。在不支持此语法的环境中，该行显示为原始文本。
+
+> **日期获取降级策略**：如上述命令注入未生效（即该行仍显示为 `` !`date ...` `` 原始文本），Agent 应通过以下方式获取当前日期：
+> 1. 使用系统环境提供的当前日期信息（如 Agent 上下文中注入的日期）
+> 2. 执行 `date` 命令获取系统日期
+> 3. 若均不可用，在事实核查输出中标注「⚠️ 无法获取当前日期，跳过日期校验」，继续后续步骤
+
 > **📋 多步骤任务提示**：本 skill 包含 **1 个强制前置步骤 + 6 个分析步骤**。如 Agent 支持任务追踪（todo list），建议开始前创建清单，逐步标记完成状态。
+
+## 如何触发
+
+本 skill 通过以下方式自动触发：
+
+- **自然语言匹配**：提供英文新闻文本（尤其是 Reuters、BBC、AP、CNN、Bloomberg 等来源）
+- **关键词匹配**：提及「英文新闻翻译」「新闻分析」「用词分析」「句法分析」「translate and analyze news」等
+- **显式调用**：通过 skill 名称 `news-linguistic-analyzer` 直接调用
+
+**不会触发**：非新闻类英文文本、诗歌、小说、无语言学分析的普通翻译请求。
 
 ## 🚨 事实核查（强制前置步骤）
 
@@ -42,6 +59,14 @@ license: MIT
 ```text
 ⚠️ 事实核查：经联网查询验证，[该事件为真实发生 / 该事件尚未发生 / 未找到相关权威报道]
    查询摘要：[1-2 句话概括搜索结果]
+```
+
+**低置信度情况**：当搜索结果存在单一信源、多源矛盾、关键细节不一致等问题时，使用低置信度标注：
+
+```text
+⚠️ 事实核查（低置信度）：经联网查询，[找到部分相关报道但无法完全验证 / 不同信源报道存在矛盾]
+   查询摘要：[1-2 句话说明搜索信息及矛盾点]
+   建议：[具体疑点及推荐权威信源]
 ```
 
 > 完整事实核查输出格式规范见 [references/output-format.md](references/output-format.md)。

@@ -73,15 +73,18 @@ news-linguistic-analyzer/
 ├── README.en.md          # This file (English documentation)
 ├── LICENSE               # MIT License
 ├── scripts/
-│   └── validate-input.py # Input pre-validation script (CLI tool)
+│   └── validate-input.py # Input pre-validation script (with mypy type annotations)
+├── tests/
+│   └── test_validate_input.py # Unit tests for validation script (29 test cases)
+├── pyproject.toml        # Project metadata (PEP 621) + mypy + ruff configuration
 ├── references/
 │   ├── batch-processing.md     # Batch processing rules
 │   ├── domain-adaptation.md    # Domain adaptation (10 domains triggers & notes)
 │   ├── edge-cases.md           # Edge cases & fallback strategies
-│   ├── examples.md             # Input/output examples (5 scenarios)
+│   ├── examples.md             # Input/output examples (9 scenarios)
 │   ├── input-validation.md     # Input validation usage & fallback strategies
 │   ├── long-text-processing.md # Long-text processing rules
-│   ├── news-sources.md         # 19 news sources identification table
+│   ├── news-sources.md         # 27 news sources identification table
 │   ├── output-format.md        # Detailed output format specification
 │   └── quality-checklist.md    # Quality assurance checklist
 └── assets/               # (Reserved) Templates and resource files
@@ -92,12 +95,25 @@ news-linguistic-analyzer/
 - Full analysis workflow & specifications: [SKILL.md](SKILL.md)
 - Output format template: [references/output-format.md](references/output-format.md)
 - Quality checklist: [references/quality-checklist.md](references/quality-checklist.md)
-- Input/output examples (8 scenarios): [references/examples.md](references/examples.md)
+- Input/output examples (9 scenarios): [references/examples.md](references/examples.md)
 - Batch processing rules: [references/batch-processing.md](references/batch-processing.md)
 - Long-text processing rules: [references/long-text-processing.md](references/long-text-processing.md)
 - Input validation guide: [references/input-validation.md](references/input-validation.md)
 
 ## Changelog
+
+### v1.8.0 (2026-06-05)
+- 🚨 **Fact-check confidence labeling**: Added "⚠️ Fact-check (low confidence)" intermediate state for single-source, contradictory, or inconsistent search results
+- 📦 **Long-text processing example**: Added Example 9 (climate summit article) demonstrating segmented output, context bridging, and full-text synthesis
+- 🎯 **Domain overlap priority heuristics**: Added 4-tier priority rules and 4 negative trigger scenarios
+- 🌐 **News sources expanded**: From 19 to 27 sources (added AFP, Kyodo News, Yonhap, Caixin, SCMP, TASS, ANSA)
+- 🔧 **Script bug fixes**: Fixed IndexError in source matching, added missing weekday names, fixed AI-generated case mismatch, fixed ⚠️ emoji duplication
+- 🏗️ **Engineering standards**: Enhanced .gitignore, added PEP 621 metadata to pyproject.toml, added 3-tier date injection fallback in SKILL.md
+- 🧪 **Unit tests**: Added `tests/test_validate_input.py` with 29 test cases covering all core functionality
+
+### v1.7.0 (2026-06-01)
+- 📋 **Skill specification optimization**: Added "How to Trigger" section in SKILL.md with explicit trigger methods; added cross-platform compatibility note for `!`date`` command injection; refactored description to prioritize core trigger semantics; added allowed-tools fallback in compatibility field
+- 🔧 **Type checking setup**: Added TypedDict type annotations to `scripts/validate-input.py`; added `pyproject.toml` with mypy static type checking configuration
 
 ### v1.6.0 (2026-05-31)
 - 🗜️ **Token efficiency**: Removed bilingual duplication in multi-step task notice, compressed fact-check trigger table and usage mode table

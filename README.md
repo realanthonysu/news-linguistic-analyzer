@@ -75,15 +75,18 @@ news-linguistic-analyzer/
 ├── README.en.md          # 英文文档
 ├── LICENSE               # MIT 许可证
 ├── scripts/
-│   └── validate-input.py # 输入预校验脚本
+│   └── validate-input.py # 输入预校验脚本（含 mypy 类型注解）
+├── tests/
+│   └── test_validate_input.py # 输入校验脚本单元测试（29 个用例）
+├── pyproject.toml        # 项目元数据（PEP 621）+ mypy + ruff 配置
 ├── references/
 │   ├── batch-processing.md     # 批量处理规则
 │   ├── domain-adaptation.md    # 领域自适应（10 大领域触发词与补充内容）
 │   ├── edge-cases.md           # 边缘情况处理与降级策略
-│   ├── examples.md             # 输入/输出对照示例（5 种场景）
+│   ├── examples.md             # 输入/输出对照示例（9 种场景）
 │   ├── input-validation.md     # 输入校验调用方式与降级方案
 │   ├── long-text-processing.md # 超长文本处理规则
-│   ├── news-sources.md         # 19 个消息源识别表
+│   ├── news-sources.md         # 27 个消息源识别表
 │   ├── output-format.md        # 输出格式详细规范
 │   └── quality-checklist.md    # 质量检查清单
 └── assets/               # （预留）模板、资源文件
@@ -94,12 +97,25 @@ news-linguistic-analyzer/
 - 完整分析流程与规范：[SKILL.md](SKILL.md)
 - 输出格式模板：[references/output-format.md](references/output-format.md)
 - 质量检查清单：[references/quality-checklist.md](references/quality-checklist.md)
-- 输入/输出示例（8 种场景）：[references/examples.md](references/examples.md)
+- 输入/输出示例（9 种场景）：[references/examples.md](references/examples.md)
 - 批量处理规则：[references/batch-processing.md](references/batch-processing.md)
 - 超长文本处理规则：[references/long-text-processing.md](references/long-text-processing.md)
 - 输入校验说明：[references/input-validation.md](references/input-validation.md)
 
 ## 版本历史
+
+### v1.8.0 (2026-06-05)
+- 🚨 **事实核查置信度标注**：新增「⚠️ 事实核查（低置信度）」中间态，覆盖单一信源、多源矛盾、细节不一致等场景
+- 📦 **超长文本完整示例**：examples.md 新增示例 9（气候变化峰会），展示分段、衔接、全文综述完整结构
+- 🎯 **领域重叠优先级启发式**：新增四级优先级规则和四种不应触发场景
+- 🌐 **消息源扩展**：从 19 个增至 27 个（新增 AFP、共同社、韩联社、财新、南华早报、塔斯社、安莎社）
+- 🔧 **脚本修复**：修复 IndexError、时间词缺失工作日、AI-generated 大小写不匹配、⚠️ emoji 重复等 bug
+- 🏗️ **工程规范**：完善 .gitignore、pyproject.toml 新增 PEP 621 元数据、日期注入增加三级降级策略
+- 🧪 **单元测试**：新增 `tests/test_validate_input.py`，29 个用例覆盖全部核心功能
+
+### v1.7.0 (2026-06-01)
+- 📋 **Skill 规范性优化**：SKILL.md 新增「如何触发」章节，明确触发方式；`!`date`` 命令注入补充跨平台兼容性说明；description 核心触发语义前置；compatibility 补充 allowed-tools fallback 说明
+- 🔧 **类型检查配置**：`scripts/validate-input.py` 添加 TypedDict 类型注解；新增 `pyproject.toml` 配置 mypy 静态类型检查
 
 ### v1.6.0 (2026-05-31)
 - 🗜️ **Token 效率优化**：多步骤任务提示去重、事实核查触发条件表精简、使用模式表压缩

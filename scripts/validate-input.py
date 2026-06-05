@@ -5,9 +5,22 @@ news-linguistic-analyzer 输入预校验脚本
 功能：判断用户输入是否为典型英文新闻文本，辅助模型决策是否调用本 Skill
 """
 
+from __future__ import annotations
+
 import os
 import re
+import sys
 from datetime import datetime
+from typing import TypedDict
+
+
+class ValidationResult(TypedDict):
+    """预校验结果数据结构"""
+    is_news: bool
+    confidence: float
+    flags: list[str]
+    suggestion: str
+
 
 MAX_INPUT_SIZE = 1_000_000
 
@@ -35,14 +48,10 @@ def _load_news_sources() -> list[str]:
         pass
     return sources
 
-def is_likely_news(text: str) -> dict:
+def is_likely_news(text: str) -> ValidationResult:
     """
     预校验输入文本
-    返回: {
-        'is_news': bool,
-        'confidence': float (0-1),
-        'flags': list[str]  # 检测到的特征/疑点
-    }
+    返回: ValidationResult 字典，包含 is_news, confidence, flags, suggestion
     """
     flags = []
     score = 0.0
@@ -67,10 +76,14 @@ def is_likely_news(text: str) -> dict:
             'The New York Times', 'The Guardian', 'The Washington Post',
             'Bloomberg', 'The Wall Street Journal', 'The Economist',
             'NHK', 'DW', 'France 24', 'Xinhua', 'CNBC', 'NPR',
-            'Associated Press',
+            'Associated Press', 'AFP', 'Kyodo News', 'Yonhap',
+            'Caixin', 'South China Morning Post', 'TASS', 'ANSA',
         ]
-    if any(re.search(r'\b' + re.escape(src) + r'\b', text) for src in news_sources):
-        matched = [s for s in news_sources if re.search(r'\b' + re.escape(s) + r'\b', text)][0]
+    matched = next(
+        (s for s in news_sources if re.search(r'\b' + re.escape(s) + r'\b', text)),
+        None
+    )
+    if matched is not None:
         score += 0.3
         flags.append(f"detected_source:{matched}")
     
@@ -81,7 +94,11 @@ def is_likely_news(text: str) -> dict:
         flags.append("detected_news_verb")
     
     # 3. 时效性词汇
-    time_words = ['today', 'yesterday', 'Saturday', 'Sunday', 'this week', 'as of']
+    time_words = [
+        'today', 'yesterday', 'tomorrow',
+        'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
+        'this week', 'last week', 'as of',
+    ]
     if any(t in text.lower() for t in time_words):
         score += 0.15
         flags.append("detected_time_marker")
@@ -108,7 +125,7 @@ def is_likely_news(text: str) -> dict:
         # 不扣分，但标记供后续事实核查使用
     
     # 2. 虚构标记词
-    fiction_markers = ['fiction', 'scenario', 'hypothetical', 'AI-generated', 'creative writing']
+    fiction_markers = ['fiction', 'scenario', 'hypothetical', 'ai-generated', 'creative writing']
     if any(m in text.lower() for m in fiction_markers):
         flags.append("⚠️ fiction_marker_detected")
         score -= 0.3
@@ -131,28 +148,27 @@ def is_likely_news(text: str) -> dict:
     }
 
 
-def format_validation_report(result: dict) -> str:
+def format_validation_report(result: ValidationResult) -> str:
     """生成人类可读的校验报告"""
     report = [f"🔍 输入校验结果：{'✅ 疑似新闻文本' if result['is_news'] else '❓ 不确定 / ❌ 非新闻'}"]
     report.append(f"置信度：{result['confidence']:.0%}")
     if result['flags']:
         report.append("检测特征：")
         for flag in result['flags']:
-            prefix = "⚠️ " if flag.startswith("⚠️") else "• "
-            report.append(f"  {prefix}{flag}")
+            if flag.startswith("⚠️"):
+                report.append(f"  {flag}")
+            else:
+                report.append(f"  • {flag}")
     return '\n'.join(report)
 
 
 # === CLI 测试入口 ===
 if __name__ == '__main__':
-    import sys
-
     if sys.platform == 'win32':
-        try:
+        if hasattr(sys.stdout, 'reconfigure'):
             sys.stdout.reconfigure(encoding='utf-8')
+        if hasattr(sys.stderr, 'reconfigure'):
             sys.stderr.reconfigure(encoding='utf-8')
-        except AttributeError:
-            pass
 
     text = ''
     if len(sys.argv) > 1:
