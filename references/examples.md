@@ -428,3 +428,163 @@ Back in Washington, the domestic political implications are already becoming cle
 - 时态分布：第 1 段以现在完成时（`has been reached`）和过去时为主，体现"已达成协议"的新闻时效性；第 3 段转为现在进行时（`are becoming clear`），暗示事态仍在发展
 - 消息源模式：全文未使用直接引语，而依赖间接归因（`arguing that`、`warned that`、`citing`），是外交报道中常见的"去个人化"修辞策略
 ```
+
+---
+
+## 示例 10：简洁模式（Brief Mode）
+
+### 用户指令
+
+```text
+/news-linguistic-analyzer --brief
+
+The WHO declared the end of the global mpox emergency after cases dropped sharply worldwide. Director-General Tedros Adhanom Ghebreyesus praised the coordinated vaccination campaign but warned that the virus remains a concern in under-resourced regions. The declaration came after a year-long outbreak that infected over 100,000 people across 110 countries.
+```
+
+### 期望输出
+
+```markdown
+### 📝 中文翻译
+世界卫生组织宣布全球猴痘疫情紧急状态结束，此前全球病例数大幅下降。总干事谭德塞对协调一致的疫苗接种运动表示赞赏，但警告该病毒在资源匮乏地区仍是隐患。此次宣布是在持续一年、感染超过 110 个国家 10 万人的疫情之后作出的。
+✅ 翻译校验通过：原文 6 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `declared the end of` | 宣布……结束 | 外交/公共卫生正式声明用语，`declare` 比 `announce` 更具官方权威性。 |
+| `coordinated vaccination campaign` | 协调一致的疫苗接种运动 | `coordinated` 强调多方协作，`campaign` 在公共卫生语境中指大规模有组织的行动，不同于军事/商业含义。 |
+| `under-resourced regions` | 资源匮乏地区 | `under-` 前缀表不足，`resourced` 为名词化形容词。公共卫生报道中替代"poor"的委婉表达。 |
+
+> 注：简洁模式下用词分析限 3 项。
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：Director-General Tedros Adhanom Ghebreyesus praised the coordinated vaccination campaign but warned that the virus remains a concern in under-resourced regions.
+- 主干：Director-General praised the campaign but warned that...
+    - 并列谓语 1：praised the coordinated vaccination campaign
+    - 并列谓语 2：warned that the virus remains a concern
+        - 介词短语（地点）：in under-resourced regions
+- 中文切分逻辑：英文用 `but` 连接两个并列谓语，形成"肯定+警示"的新闻平衡结构；中文保留"但"转折，将长主语头衔前置处理。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **并列谓语结构**：`praised... but warned that...` 用 `but` 连接两个动词，形成"先扬后抑"的新闻叙事节奏。中文保留此结构，用"但"衔接。
+2. **现在完成时+after 从句**：`came after a year-long outbreak that infected...` 用完成时强调声明的时间先后关系，`after` 从句补充背景信息。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 头衔全译 | `Director-General` | 译为"总干事" | 国际组织头衔有固定中文译法，不可意译 |
+| 数量结构前置 | `over 100,000 people across 110 countries` | 译为"超过 110 个国家 10 万人" | 中文习惯将范围前置、数量后置，符合信息焦点排列 |
+
+> 注：简洁模式下翻译技巧限 2 项。
+
+### 🌍 延伸思考
+🌍 `declared the end of the global mpox emergency` 的措辞值得玩味——"宣布紧急状态结束"并不等于"病毒已消失"，WHO 在同段中即用 `but warned` 补充了警示。这种"先宣后警"的结构在公共卫生报道中极为常见，既回应公众对好消息的期待，又避免造成过度乐观的误读。翻译时需注意：中文"宣布结束"可能比英文 `declared the end of` 听起来更绝对，建议通过"但警告"的转折保留原文的审慎语气。
+```
+
+> 注：简洁模式下用词分析限 3 项，翻译技巧限 2 项，其余步骤（句子拆解、语法分析、延伸思考）保持完整输出。参照 SKILL.md 使用模式定义。
+
+---
+
+## 示例 11：多领域重叠 — 地缘政治与金融
+
+### 输入
+
+```text
+Sanctions Impact on Energy Markets: The EU's latest round of sanctions targeting Russian oil exports has sent Brent crude prices surging past $95 a barrel. The restrictions, which ban insurance and financing for Russian oil shipments above a $60 price cap, have triggered concerns about global supply shortages. Analysts at Goldman Sachs warned that prices could breach $100 if the sanctions are enforced strictly, while Moscow dismissed the measures as "economic warfare."
+```
+
+### 期望输出
+
+```markdown
+### 📝 中文翻译
+**制裁对能源市场的影响**：欧盟针对俄罗斯石油出口的最新一轮制裁已推动布伦特原油价格突破每桶 95 美元。这些限制措施禁止为价格超过 60 美元上限的俄罗斯石油运输提供保险和融资，引发了全球供应短缺的担忧。高盛分析师警告称，若制裁严格执行，油价可能突破 100 美元，而莫斯科则将这些措施斥为"经济战争"。
+✅ 翻译校验通过：原文 7 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `sanctions` | 制裁 | 地缘政治核心术语。🏛️ [背景说明] 国际制裁是外交施压的主要经济手段，欧盟自 2022 年以来对俄实施多轮制裁，涉及能源、金融、技术等领域。 |
+| `Brent crude` | 布伦特原油 | 全球原油定价基准之一。🏛️ [背景说明] 布伦特原油价格是国际能源市场的风向标，与 WTI（西德克萨斯中质原油）并列为两大基准。 |
+| `price cap` | 价格上限 | 财经术语，指对商品设定最高价格限制。此处为 G7 对俄油设定的限价机制，翻译保留"上限"以体现政策约束含义。 |
+| `supply shortages` | 供应短缺 | 经济学/市场分析高频词，描述供需失衡状态。中文"短缺"比"不足"更强调紧迫性。 |
+| `economic warfare` | 经济战争 | 地缘政治术语，指通过经济手段实施的对抗行为。🏛️ [背景说明] 俄方使用此措辞旨在将制裁定性为敌对行为而非合法外交工具。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：The restrictions, which ban insurance and financing for Russian oil shipments above a $60 price cap, have triggered concerns about global supply shortages.
+- 主干：The restrictions have triggered concerns
+    - 非限定性定语从句：which ban insurance and financing for Russian oil shipments above a $60 price cap
+    - 介词短语（对象）：about global supply shortages
+- 中文切分逻辑：英文将定语从句嵌入主句中作补充说明；中文需拆为主句+解释性分句（"这些限制措施禁止……，引发了……"），避免过长的定语修饰。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **非限定性定语从句**：`which ban insurance and financing for Russian oil shipments` 补充说明制裁的具体内容。新闻英语中用于在主句外嵌入背景信息。
+2. **条件状语从句**：`if the sanctions are enforced strictly` 引导假设情景，`could breach` 使用虚拟语气表达可能性。翻译时保留"若……可能"的假设框架。
+3. **while 并列对比**：`while Moscow dismissed the measures as...` 将市场反应与俄方立场并列，形成观点对比。中文用"而"衔接。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 定语从句拆分 | `which ban insurance and financing...` | 译为独立分句"这些限制措施禁止……" | 中文定语从句过长时会降低可读性，拆为并列句更流畅 |
+| 直接引语保留 | `economic warfare` | 译为"经济战争"并加引号 | 俄方官方措辞需保留原义强度，加引号标示为被引述观点 |
+| 数据精确还原 | `$95 a barrel` | 译为"每桶 95 美元" | 财经新闻中数据不可模糊处理，单位需完整转换 |
+
+### 🌍 延伸思考
+🌍 本段文本同时命中**地缘政治**（sanctions, economic warfare）和**金融**（Brent crude, price cap, Goldman Sachs）两个领域。按领域优先级规则判定：标题关键词 `Sanctions` 属地缘政治，核心动作 `sent prices surging` 虽属金融但由制裁驱动，消息源包含高盛（金融）和莫斯科（地缘政治）。综合判定地缘政治为优先领域（标题关键词命中），金融为次优先领域。领域注释已按上限 2 个注入。
+```
+
+> 注：领域检测结果 — 地缘政治（优先）、金融（次优先），最多注入 2 个领域，遵循 domain-adaptation.md 的 4 层优先级判定规则。
+
+---
+
+## 示例 12：事实核查 — 模型评估触发
+
+### 输入
+
+```text
+The Arctic Research Consortium announced a breakthrough in permafrost restoration technology, claiming their new biostimulant can reverse thawing in as little as three growing seasons. If validated by peer review, the method could transform climate adaptation strategies across Siberia and northern Canada.
+```
+
+### 期望输出
+
+```markdown
+⚠️ 事实核查（模型评估）：本段涉及"永久冻土修复技术突破"，该主题超出模型训练数据的典型覆盖范围，且无法通过常规触发条件（无具体日期、无姓名+事件组合、无伤亡数据）自动判定是否需要联网验证。
+   模型自评：该事件的真实性无法从训练数据中确认或否认。"Arctic Research Consortium"是否为真实机构、"biostimulant 逆转冻土融化"是否已有同行评审论文，均存疑。
+   建议：该内容可能涉及前沿科研进展或未经验证的声明，建议通过 Google Scholar 或相关学术数据库交叉验证后再作引用。
+
+### 📝 中文翻译
+北极研究联合体宣布在永久冻土修复技术方面取得突破，声称其新型生物刺激剂可在短短三个生长季内逆转融化。若经同行评审验证，该方法可能改变西伯利亚和加拿大北部的气候适应策略。
+✅ 翻译校验通过：原文 5 个关键信息点均已体现
+
+### 🔍 用词分析（Lexical Analysis）
+| 英文原词/短语 | 中文对应 | 语境与搭配特点 |
+|--------------|---------|----------------|
+| `permafrost` | 永久冻土 | 气候科学术语，`perma-` 表永久，`frost` 表冻结。指持续两年以上温度低于 0°C 的土壤层。 |
+| `biostimulant` | 生物刺激剂 | 生物技术术语，指能促进生物过程的物质。此处为前沿用法，翻译时保留"生物"前缀以体现科技属性。 |
+| `thawing` | 融化 | 气候变化语境中指冻土解冻过程。与 `melting`（冰雪融化）有细微区别，`thawing` 更强调温度上升导致的解冻。 |
+| `peer review` | 同行评审 | 学术出版核心机制，指由同领域专家审核研究成果的程序。中文已有固定译法。 |
+| `climate adaptation strategies` | 气候适应策略 | 气候政策术语，与 `mitigation`（减缓）相对，`adaptation` 指调整以适应已发生的气候变化。 |
+
+### 🧱 句子结构拆解（Sentence Structure Breakdown）
+#### 原句：If validated by peer review, the method could transform climate adaptation strategies across Siberia and northern Canada.
+- 主干：the method could transform climate adaptation strategies
+    - 条件状语（省略主语的过去分词短语）：If validated by peer review
+    - 介词短语（范围）：across Siberia and northern Canada
+- 中文切分逻辑：英文将条件前置并省略主语（`If validated` = `If it is validated`），中文需补充主语或用"若经……验证"的紧凑句式。
+
+### 📐 语法结构分析（Grammatical Analysis）
+1. **省略主语的条件状语**：`If validated by peer review` 为 `If it is validated by peer review` 的省略形式，是学术/科技新闻中常见的简洁写法。中文用"若经……验证"对应。
+2. **claiming 引导的伴随状语**：`claiming their new biostimulant can reverse...` 表示"声称"，暗示该声明尚待验证。翻译时保留"声称"的存疑语气。
+3. **虚拟语气**：`could transform` 使用 `could` 表示可能性而非确定性，与条件从句 `If validated` 构成虚拟条件链。中文用"可能改变"保留同等不确定性。
+
+### 💡 翻译技巧提示（Translation Techniques）
+| 技巧 | 原文示例 | 处理方式 | 原理 |
+|------|---------|---------|------|
+| 学术术语直译 | `peer review` | 译为"同行评审" | 学术出版术语已有广泛接受的中文译法，直译即可 |
+| 机构名保留 | `Arctic Research Consortium` | 译为"北极研究联合体" | 非知名机构名，逐词翻译即可，无需音译 |
+| 不确定性语气保留 | `claiming... could transform` | 译为"声称……可能改变" | 原文刻意使用不确定措辞，翻译时不可强化为确定性表述 |
+
+### 🌍 延伸思考
+🌍 本段触发了事实核查的**模型评估层**：没有常规触发条件（无具体日期、无姓名+重大事件、无伤亡数据），但内容涉及前沿科研声明（永久冻土修复技术突破），模型无法从训练数据中确认其真实性。这正是第二层核查的意义所在——当文本看起来像是新闻报道但涉及超出模型知识范围的领域时，模型应主动标注不确定性，而非默认接受。`claiming` 一词在原文中已暗示存疑，但仅凭措辞判断不足以触发核查；模型需结合"是否在训练数据中有据可查"进行自评。翻译时保留"声称"的谨慎语气至关重要——若译为"宣布"可能暗示更高的可信度。
+```
+
+> 注：本例展示第二层事实核查（模型评估）的触发流程。当无第一层强制触发条件（日期、人名+事件、伤亡数据）时，模型自评事件是否可能超出知识覆盖范围，若存疑则标注并建议用户通过权威信源验证。

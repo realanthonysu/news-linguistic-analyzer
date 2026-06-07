@@ -24,7 +24,7 @@ Additionally, the Skill supports:
 -  **Batch Processing**: Input multiple articles at once, auto-numbered and segmented analysis
 - 📄 **Long-Text Processing**: For articles >2000 words, uses topic-aware segmentation with context bridging and full-text synthesis
 - 📋 **Multi-Step Task Tracking Hint**: Built-in collaboration hint for the Agent's todo list mechanism, preventing skips of mandatory pre-steps (especially fact-checking)
-- 🔐 **Input Security Validation**: Built-in input size limits and path validation
+- 🔐 **Input Security Validation**: Built-in input size limits, path validation, and boundary condition guards (auto-rejects non-English input and scattered words/phrases)
 
 ## Installation
 
@@ -75,7 +75,7 @@ news-linguistic-analyzer/
 ├── scripts/
 │   └── validate-input.py # Input pre-validation script (with mypy type annotations)
 ├── tests/
-│   └── test_validate_input.py # Unit tests for validation script (29 test cases)
+│   └── test_validate_input.py # Unit tests for validation script (46 test cases)
 ├── pyproject.toml        # Project metadata (PEP 621) + mypy + ruff configuration
 ├── references/
 │   ├── batch-processing.md     # Batch processing rules
@@ -87,7 +87,6 @@ news-linguistic-analyzer/
 │   ├── news-sources.md         # 27 news sources identification table
 │   ├── output-format.md        # Detailed output format specification
 │   └── quality-checklist.md    # Quality assurance checklist
-└── assets/               # (Reserved) Templates and resource files
 ```
 
 ## Documentation
@@ -101,6 +100,16 @@ news-linguistic-analyzer/
 - Input validation guide: [references/input-validation.md](references/input-validation.md)
 
 ## Changelog
+
+### v1.9.0 (2026-06-06)
+- 🛑 **Boundary condition guards**: Added mandatory pre-flight checks that run before fact-checking and the 6-step analysis pipeline
+  - Guard 1 — Non-English input detection: Dual character-level + word-level detection, rejects Chinese, Japanese, Korean, Russian, Arabic, and other non-English inputs
+  - Guard 2 — English words/phrases detection: Checks for end-of-sentence punctuation and subject-verb structure, rejects scattered words/phrases and prompts for complete sentences
+  - News headline-formatted short text is exempt from Guard 2
+- 📋 **SKILL.md structure update**: Added "Boundary Condition Guards" section; input validation and edge case references synced
+- 📝 **edge-cases.md restructured**: Added full boundary guard section; non-English input policy tightened from "ask user" to "reject analysis"
+- 🔧 **validate-input.py extended**: Added language detection, sentence completeness detection, and headline recognition; `ValidationResult` now includes `boundary_reject` field
+- 🧪 **Unit tests**: Added 17 boundary condition test cases (covering 6 non-English languages + various English input scenarios), 46 total test cases all passing
 
 ### v1.8.0 (2026-06-05)
 - 🚨 **Fact-check confidence labeling**: Added "⚠️ Fact-check (low confidence)" intermediate state for single-source, contradictory, or inconsistent search results

@@ -5,7 +5,7 @@ compatibility: "Requires web_search and web_fetch tools for the mandatory fact-c
 allowed-tools: "web_search web_fetch"
 metadata:
   author: anthonysu
-  version: "1.8.0"
+  version: "1.9.0"
 license: MIT
 ---
 
@@ -35,6 +35,19 @@ license: MIT
 - **显式调用**：通过 skill 名称 `news-linguistic-analyzer` 直接调用
 
 **不会触发**：非新闻类英文文本、诗歌、小说、无语言学分析的普通翻译请求。
+
+## 🛑 边界条件守卫（强制前置拦截）
+
+**收到用户输入后，在触发事实核查和分析流程之前，必须先执行以下两项边界条件检测**。任一条件命中即中止分析，向用户输出对应提示并结束。
+
+| 守卫 | 判定条件 | 处理 |
+|------|---------|------|
+| 非英文输入 | 输入主体为非拉丁字母（中文、日文、韩文等），英文单词占比 <30% | 拒绝分析，提示「本 skill 专为英文新闻精读设计」 |
+| 仅英文单词/短语 | 输入为英文但无句末标点、无主谓结构（零散单词或短语） | 拒绝分析，提示「请提供至少一句完整的英文句子」 |
+
+> 例外：符合新闻标题特征的短文本（3-15 词、首字母大写、含动词）不在此守卫拦截范围内。
+
+完整判定规则、提示文案和降级方案见 [references/edge-cases.md](references/edge-cases.md)「🛑 边界条件守卫」一节。
 
 ## 🚨 事实核查（强制前置步骤）
 
@@ -159,7 +172,7 @@ license: MIT
 
 ## 消息源识别
 
-完整消息源列表（19 个）见 [references/news-sources.md](references/news-sources.md)。
+完整消息源列表（27 个）见 [references/news-sources.md](references/news-sources.md)。
 
 当新闻中出现消息源标识时，在语法分析中注明来源，翻译时使用标准中文译法。
 
@@ -181,13 +194,13 @@ license: MIT
 
 ## 输入校验（可选）
 
-当不确定输入是否为新闻文本时，可运行 `scripts/validate-input.py` 辅助判断。根据退出码决定后续操作（`0`=正常执行，`1`=添加待确认提示，`2`=询问用户是否继续）。
+当不确定输入是否为新闻文本时，可运行 `scripts/validate-input.py` 辅助判断。脚本会**优先执行边界条件守卫**（非英文检测、句子完整性检测），再进行新闻文本判定。根据退出码决定后续操作（`0`=正常执行，`1`=添加待确认提示，`2`=边界条件拦截/询问用户是否继续）。
 
 完整调用方式、退出码说明和内联判断降级方案见 [references/input-validation.md](references/input-validation.md)。
 
 ## 边缘情况与错误处理
 
-完整边缘情况处理表和降级策略见 [references/edge-cases.md](references/edge-cases.md)。
+完整边界条件守卫规则、边缘情况处理表和降级策略见 [references/edge-cases.md](references/edge-cases.md)。
 
 ## 质量检查
 

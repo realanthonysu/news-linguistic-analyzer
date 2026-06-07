@@ -12,7 +12,7 @@ venv/
 .mypy_cache/
 
 # IDE / Agent tooling
-.qwen/
+.qwen/settings*
 .claude/
 QWEN.md
 
